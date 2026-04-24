@@ -136,6 +136,7 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 .form-card__title { font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--white); }
 .form-card__sub { font-size:13px; color:var(--silver); margin-top:2px; }
 .form-progress { height:4px; background:var(--border); }
+.form-step-counter { text-align:center; padding:10px 20px 0; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:0.03em; }
 .form-progress__fill { height:100%; background:var(--crimson); border-radius:0 2px 2px 0; transition:width 0.4s cubic-bezier(0.4,0,0.2,1); }
 .form-step { padding:24px 20px 28px; display:none; }
 .form-step.active { display:block; animation:fadeUp 0.3s ease forwards; }
@@ -214,7 +215,7 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 
 /* ── PHOTO FEATURE ── */
 .photo-feature { position:relative; overflow:hidden; }
-.photo-feature__img { width:100%; height:320px; object-fit:cover; }
+.photo-feature__img { width:100%; height:320px; object-fit:cover; object-position:center 60%; }
 @media(min-width:768px){ .photo-feature__img { height:400px; } }
 .photo-feature__overlay { position:absolute; inset:0; background:linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.4) 100%); display:flex; align-items:center; }
 .photo-feature__content { padding:0 20px; max-width:1200px; margin:0 auto; width:100%; }
@@ -352,6 +353,7 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
           <div class="form-card__sub">Free &middot; 60 seconds &middot; No obligation</div>
         </div>
         <div class="form-progress"><div class="form-progress__fill" id="progFill" style="width:20%"></div></div>
+        <div class="form-step-counter" id="stepCounter">Step 1 of 5</div>
 
         <!-- Step 1 -->
         <div class="form-step active" data-step="1">
@@ -640,7 +642,7 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 
   /* LEAD FORM */
   var currentStep=1,totalSteps=5,formData={};
-  var card=document.querySelector(".form-card"),progFill=document.getElementById("progFill");
+  var card=document.querySelector(".form-card"),progFill=document.getElementById("progFill"),stepCounter=document.getElementById("stepCounter");
 
   card.querySelectorAll(".form-option").forEach(function(btn){
     btn.addEventListener("click",function(){
@@ -674,12 +676,12 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
     var t=card.querySelector('[data-step="'+n+'"]');if(t)t.classList.add("active");
     document.getElementById("formSuccess").classList.remove("active");
     document.getElementById("formSuccess").style.display="none";
-    currentStep=n;progFill.style.width=(n/totalSteps*100)+"%";
+    currentStep=n;progFill.style.width=(n/totalSteps*100)+"%";stepCounter.textContent="Step "+n+" of "+totalSteps;
   }
 
   function showSuccess(){
     card.querySelectorAll(".form-step").forEach(function(s){s.classList.remove("active")});
-    card.querySelector(".form-progress").style.display="none";
+    card.querySelector(".form-progress").style.display="none";stepCounter.style.display="none";
     var suc=document.getElementById("formSuccess");suc.style.display="block";suc.classList.add("active");
   }
 
