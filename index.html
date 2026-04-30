@@ -22,6 +22,7 @@
       --shadow: 0 18px 45px rgba(16, 24, 40, 0.16);
       --display: "Barlow Condensed", Arial, sans-serif;
       --body: "Barlow", Arial, sans-serif;
+      --hero-image: url("https://images.unsplash.com/photo-1529440705771-c26e7430d307?auto=format&fit=crop&w=2400&q=86");
     }
 
     * {
@@ -52,7 +53,7 @@
     }
 
     .container {
-      width: min(1120px, calc(100% - 40px));
+      width: min(100% - 28px, 1120px);
       margin: 0 auto;
     }
 
@@ -84,8 +85,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 62px;
-      gap: 22px;
+      min-height: 58px;
+      gap: 14px;
+      padding: 8px 0;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -129,12 +132,20 @@
     }
 
     .nav {
-      display: flex;
+      display: none;
       align-items: center;
-      gap: 28px;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0 12px;
       color: #636b76;
       font-size: 14px;
       font-weight: 600;
+    }
+
+    .nav.is-open {
+      display: flex;
     }
 
     .nav a:hover {
@@ -159,6 +170,10 @@
       transition: 0.2s ease;
     }
 
+    .header .btn {
+      display: none;
+    }
+
     .btn:hover {
       background: var(--red-light);
       transform: translateY(-1px);
@@ -174,27 +189,27 @@
 
     .hero {
       position: relative;
-      min-height: 455px;
+      min-height: auto;
       overflow: hidden;
       color: #fff;
       background:
-        linear-gradient(90deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.46) 48%, rgba(0, 0, 0, 0.2)),
-        url("https://images.unsplash.com/photo-1544717297-fa95b6ee9643?auto=format&fit=crop&w=1800&q=82") center 42% / cover;
+        linear-gradient(180deg, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.52) 46%, rgba(0, 0, 0, 0.7)),
+        var(--hero-image) center 38% / cover;
     }
 
     .hero__inner {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 410px;
+      grid-template-columns: 1fr;
       align-items: center;
-      gap: 56px;
-      min-height: 455px;
-      padding: 42px 0;
+      gap: 24px;
+      min-height: auto;
+      padding: 36px 0;
     }
 
     .hero h1 {
-      max-width: 560px;
+      max-width: 440px;
       font-family: var(--display);
-      font-size: clamp(42px, 5vw, 64px);
+      font-size: clamp(34px, 12vw, 46px);
       font-weight: 800;
       line-height: 0.95;
       text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
@@ -205,10 +220,10 @@
     }
 
     .hero p {
-      max-width: 550px;
-      margin-top: 18px;
+      max-width: 430px;
+      margin-top: 14px;
       color: rgba(255, 255, 255, 0.84);
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 500;
     }
 
@@ -217,10 +232,11 @@
       background: #fff;
       border-radius: 8px;
       box-shadow: var(--shadow);
+      width: 100%;
     }
 
     .quiz__head {
-      padding: 18px 22px;
+      padding: 14px 18px;
       background: #101113;
       color: #fff;
       text-align: center;
@@ -228,7 +244,7 @@
 
     .quiz__head h2 {
       font-family: var(--display);
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1;
     }
 
@@ -239,7 +255,7 @@
     }
 
     .quiz__body {
-      padding: 22px;
+      padding: 18px;
       color: var(--ink);
     }
 
@@ -253,16 +269,17 @@
     }
 
     .quiz__question {
-      margin: 2px 0 14px;
+      margin: 2px 0 12px;
       font-weight: 800;
+      line-height: 1.2;
     }
 
     .option {
       display: flex;
       align-items: center;
       width: 100%;
-      min-height: 44px;
-      margin-bottom: 10px;
+      min-height: 40px;
+      margin-bottom: 8px;
       padding: 0 14px;
       border: 1px solid #dde2ea;
       border-radius: 5px;
@@ -312,20 +329,20 @@
 
     .field {
       display: block;
-      margin-bottom: 13px;
+      margin-bottom: 9px;
     }
 
     .field span {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       color: #384150;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
     }
 
     .field input {
       width: 100%;
-      min-height: 43px;
+      min-height: 38px;
       padding: 0 12px;
       border: 1px solid #dde2ea;
       border-radius: 5px;
@@ -344,7 +361,7 @@
     .quiz__actions {
       display: flex;
       gap: 10px;
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .quiz__actions .btn {
@@ -421,15 +438,29 @@
       display: grid;
       grid-template-columns: 18px 1fr;
       gap: 9px;
-      margin-top: 12px;
+      margin-top: 10px;
       color: var(--muted);
-      font-size: 11px;
+      font-size: 10.5px;
       line-height: 1.35;
+    }
+
+    p.tcpa {
+      display: block;
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 0;
     }
 
     .tcpa input {
       margin-top: 2px;
       accent-color: var(--red);
+    }
+
+    .tcpa--inline {
+      display: block;
+      margin-top: 6px;
     }
 
     .quiz__success {
@@ -503,9 +534,9 @@
 
     .steps__grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 42px;
-      margin-top: 46px;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 38px;
       text-align: center;
     }
 
@@ -548,13 +579,13 @@
     .programs .eyebrow,
     .programs .section-title,
     .programs .section-copy {
-      text-align: left;
-      margin-left: 0;
+      text-align: center;
+      margin-left: auto;
     }
 
     .program-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr;
       gap: 18px;
     }
 
@@ -641,7 +672,7 @@
 
     .resource-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
       gap: 22px;
       max-width: 780px;
       margin: 32px auto 0;
@@ -730,8 +761,8 @@
 
     .footer__grid {
       display: grid;
-      grid-template-columns: 1.7fr 1fr 1fr;
-      gap: 58px;
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
 
     .footer .brand {
@@ -772,7 +803,7 @@
     }
 
     .mobile-toggle {
-      display: none;
+      display: block;
       width: 42px;
       height: 42px;
       border: 0;
@@ -787,89 +818,203 @@
       background: var(--ink);
     }
 
-    @media (max-width: 960px) {
-      .header__inner {
-        height: auto;
-        min-height: 62px;
-        flex-wrap: wrap;
-        padding: 10px 0;
-      }
-
-      .nav {
-        display: none;
-        width: 100%;
-        padding: 8px 0 14px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-
-      .nav.is-open {
-        display: flex;
-      }
-
-      .header .btn {
-        display: none;
-      }
-
-      .mobile-toggle {
-        display: block;
-      }
-
-      .hero__inner {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-
-      .steps__grid,
-      .program-grid,
-      .resource-grid,
-      .footer__grid {
-        grid-template-columns: 1fr;
-      }
-
-      .programs .eyebrow,
-      .programs .section-title,
-      .programs .section-copy {
-        text-align: center;
-        margin-left: auto;
-      }
-
-      .trustbar__inner {
-        flex-wrap: wrap;
-        gap: 12px 20px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .container {
-        width: min(100% - 28px, 1120px);
-      }
-
+    @media (max-width: 420px) {
       .topbar {
         font-size: 10px;
       }
 
-      .hero {
-        min-height: auto;
+      .brand__text {
+        font-size: 17px;
       }
 
       .hero__inner {
-        min-height: auto;
-        padding: 46px 0;
+        padding: 28px 0 34px;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 11vw, 40px);
       }
 
       .quiz__body {
-        padding: 18px;
+        padding: 16px;
+      }
+
+      .option {
+        min-height: 38px;
+        margin-bottom: 7px;
       }
 
       section {
-        padding: 54px 0;
+        padding: 50px 0;
       }
 
       .mini-nav a {
         display: inline-block;
         margin: 5px 7px;
+      }
+    }
+
+    @media (min-width: 700px) {
+      .container {
+        width: min(100% - 56px, 1120px);
+      }
+
+      .hero__inner {
+        max-width: 560px;
+      }
+
+      .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 10px;
+      }
+
+      .contact-grid .field:nth-child(3),
+      .contact-grid .field:nth-child(4),
+      .contact-grid .field:nth-child(5) {
+        grid-column: 1 / -1;
+      }
+
+      .steps__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .program-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .resource-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer__grid {
+        grid-template-columns: 1.7fr 1fr 1fr;
+        gap: 48px;
+      }
+    }
+
+    @media (min-width: 961px) {
+      .container {
+        width: min(100% - 80px, 1180px);
+      }
+
+      .header__inner {
+        flex-wrap: nowrap;
+        min-height: 62px;
+        padding: 0;
+      }
+
+      .nav {
+        display: flex;
+        width: auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 28px;
+        padding: 0;
+      }
+
+      .mobile-toggle {
+        display: none;
+      }
+
+      .header .btn {
+        display: inline-flex;
+      }
+
+      .hero {
+        min-height: clamp(680px, 100vh - 95px, 1120px);
+        background:
+          linear-gradient(90deg, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0.18)),
+          var(--hero-image) center 48% / cover;
+      }
+
+      .hero__inner {
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 420px);
+        max-width: none;
+        min-height: clamp(680px, 100vh - 95px, 1120px);
+        gap: clamp(42px, 5vw, 92px);
+        padding: 42px 0;
+      }
+
+      .hero h1 {
+        max-width: 580px;
+        font-size: clamp(50px, 4vw, 74px);
+      }
+
+      .hero p {
+        max-width: 560px;
+        font-size: 17px;
+      }
+
+      .quiz {
+        justify-self: end;
+        max-width: 420px;
+      }
+
+      .programs .eyebrow,
+      .programs .section-title,
+      .programs .section-copy {
+        text-align: left;
+        margin-left: 0;
+      }
+
+      .program-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .container {
+        max-width: 1180px;
+      }
+
+      .hero__inner {
+        grid-template-columns: minmax(0, 1fr) 410px;
+      }
+    }
+
+    @media (min-width: 1536px) {
+      .container {
+        max-width: 1320px;
+      }
+
+      .hero__inner {
+        grid-template-columns: minmax(0, 1fr) 430px;
+      }
+
+      .quiz {
+        max-width: 430px;
+      }
+    }
+
+    @media (min-width: 1920px) {
+      .container {
+        max-width: 1500px;
+      }
+
+      .hero {
+        background:
+          linear-gradient(90deg, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.34) 52%, rgba(0, 0, 0, 0.16)),
+          var(--hero-image) center 50% / cover;
+      }
+
+      .hero__inner {
+        grid-template-columns: minmax(0, 1fr) 440px;
+      }
+    }
+
+    @media (min-width: 2560px) {
+      .container {
+        max-width: 1780px;
+      }
+
+      .hero h1 {
+        font-size: clamp(70px, 3vw, 98px);
+        max-width: 760px;
+      }
+
+      .hero p {
+        max-width: 720px;
+        font-size: 20px;
       }
     }
   </style>
@@ -944,27 +1089,29 @@
             <div class="quiz__step" data-step="contact">
               <div class="quiz__eyebrow">Last Step</div>
               <div class="quiz__question">How should a school representative get ahold of you?</div>
-              <label class="field">
-                <span>First Name</span>
-                <input type="text" name="first_name" autocomplete="given-name" required>
-              </label>
-              <label class="field">
-                <span>Last Name</span>
-                <input type="text" name="last_name" autocomplete="family-name" required>
-              </label>
-              <label class="field">
-                <span>Phone Number</span>
-                <input type="tel" name="phone" autocomplete="tel" required>
-              </label>
-              <label class="field">
-                <span>Email Address</span>
-                <input type="email" name="email" autocomplete="email" required>
-              </label>
-              <label class="field">
-                <span>ZIP Code</span>
-                <input type="text" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required>
-              </label>
-              <p class="tcpa">By clicking "See My Matches," you agree that Military EDU Advisors and its partner schools or affiliates may contact you about education options by phone, email, text message, or automated technology at the contact information you provide. Consent is not required to purchase goods or services.</p>
+              <div class="contact-grid">
+                <label class="field">
+                  <span>First Name</span>
+                  <input type="text" name="first_name" autocomplete="given-name" required>
+                </label>
+                <label class="field">
+                  <span>Last Name</span>
+                  <input type="text" name="last_name" autocomplete="family-name" required>
+                </label>
+                <label class="field">
+                  <span>Phone Number</span>
+                  <input type="tel" name="phone" autocomplete="tel" required>
+                </label>
+                <label class="field">
+                  <span>Email Address</span>
+                  <input type="email" name="email" autocomplete="email" required>
+                </label>
+                <label class="field">
+                  <span>ZIP Code</span>
+                  <input type="text" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required>
+                </label>
+              </div>
+              <p class="tcpa tcpa--inline">By clicking "See My Matches," you agree that Military EDU Advisors and partner schools may contact you about education options by phone, email, text, or automated technology. Consent is not required to purchase goods or services.</p>
               <div class="quiz__actions">
                 <button class="btn" type="submit">See My Matches</button>
               </div>
