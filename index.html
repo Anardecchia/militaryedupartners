@@ -296,6 +296,149 @@
       background: radial-gradient(circle, var(--red) 40%, #fff 45%);
     }
 
+    .quiz__step {
+      display: none;
+    }
+
+    .quiz__step.is-active {
+      display: block;
+    }
+
+    .quiz__helper {
+      margin: -6px 0 15px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .field {
+      display: block;
+      margin-bottom: 13px;
+    }
+
+    .field span {
+      display: block;
+      margin-bottom: 5px;
+      color: #384150;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 43px;
+      padding: 0 12px;
+      border: 1px solid #dde2ea;
+      border-radius: 5px;
+      background: #f7f8fa;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 600;
+    }
+
+    .field input:focus {
+      outline: 2px solid rgba(159, 23, 28, 0.18);
+      border-color: var(--red);
+      background: #fff;
+    }
+
+    .quiz__actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .quiz__actions .btn {
+      width: 100%;
+    }
+
+    .btn--muted {
+      background: #eef1f5;
+      color: #384150;
+      box-shadow: none;
+    }
+
+    .btn--muted:hover {
+      background: #e1e6ee;
+      color: #202631;
+    }
+
+    .error {
+      display: none;
+      margin: 9px 0 0;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .error.is-visible {
+      display: block;
+    }
+
+    .school-list {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .school-card {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      padding: 13px;
+      border: 1px solid #dde2ea;
+      border-radius: 6px;
+      background: #f7f8fa;
+      cursor: pointer;
+    }
+
+    .school-card:has(input:checked) {
+      border-color: var(--red);
+      background: #fff5f5;
+    }
+
+    .school-card input {
+      margin-top: 3px;
+      accent-color: var(--red);
+    }
+
+    .school-card strong {
+      display: block;
+      color: #202631;
+      font-family: var(--display);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .school-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tcpa {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 9px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .tcpa input {
+      margin-top: 2px;
+      accent-color: var(--red);
+    }
+
+    .quiz__success {
+      padding: 8px 0;
+      color: #157347;
+      font-weight: 800;
+      text-align: center;
+    }
+
     .trustbar {
       background: #fff;
       border-bottom: 1px solid var(--line);
@@ -760,19 +903,94 @@
           <p>We match military service members, veterans, and spouses with accredited programs that honor your service and your benefits. Free. No obligation.</p>
         </div>
 
-        <form class="quiz" aria-label="School matching form">
+        <form class="quiz" id="lead-form" aria-label="School matching form" data-leadhoop-endpoint="">
           <div class="quiz__head">
             <h2>Find Your School Match</h2>
             <p>Free. 60 seconds. No obligation.</p>
           </div>
           <div class="quiz__body">
-            <div class="quiz__eyebrow">Step 1 of 3</div>
-            <div class="quiz__question">What's your military affiliation?</div>
-            <button class="option" type="button">Active Duty</button>
-            <button class="option" type="button">Veteran</button>
-            <button class="option" type="button">Military Spouse</button>
-            <button class="option" type="button">Dependent</button>
-            <button class="option" type="button">Considering Joining</button>
+            <div class="quiz__step is-active" data-step="program-primary">
+              <div class="quiz__eyebrow">Step 1A of 4</div>
+              <div class="quiz__question">What program are you interested in?</div>
+              <button class="option" type="button" data-program="Business">Business</button>
+              <button class="option" type="button" data-program="Computers &amp; IT">Computers &amp; IT</button>
+              <button class="option" type="button" data-program="Healthcare">Healthcare</button>
+              <button class="option" type="button" data-program="Trades">Trades</button>
+              <button class="option" type="button" data-program="Other" data-next="program-other">Other</button>
+            </div>
+
+            <div class="quiz__step" data-step="program-other">
+              <div class="quiz__eyebrow">Step 1B of 4</div>
+              <div class="quiz__question">Which other field best fits your goals?</div>
+              <button class="option" type="button" data-program="Art &amp; Design">Art &amp; Design</button>
+              <button class="option" type="button" data-program="Education &amp; Teaching">Education &amp; Teaching</button>
+              <button class="option" type="button" data-program="Law &amp; Criminal Justice">Law &amp; Criminal Justice</button>
+              <button class="option" type="button" data-program="Liberal Arts &amp; Humanities">Liberal Arts &amp; Humanities</button>
+              <button class="option" type="button" data-program="Social Science">Social Science</button>
+            </div>
+
+            <div class="quiz__step" data-step="education">
+              <div class="quiz__eyebrow">Step 2 of 4</div>
+              <label class="field">
+                <span>What year did you graduate high school?</span>
+                <input type="number" name="graduation_year" min="1940" max="2030" inputmode="numeric" placeholder="YYYY" required>
+              </label>
+              <div class="quiz__question">Are you or an immediate family member affiliated with the military, Guard, or Reserve?</div>
+              <button class="option" type="button" data-military="Yes">Yes</button>
+              <button class="option" type="button" data-military="No">No</button>
+              <div class="error" data-error="education">Enter your graduation year and select yes or no.</div>
+            </div>
+
+            <div class="quiz__step" data-step="contact">
+              <div class="quiz__eyebrow">Last Step</div>
+              <div class="quiz__question">How should a school representative get ahold of you?</div>
+              <label class="field">
+                <span>First Name</span>
+                <input type="text" name="first_name" autocomplete="given-name" required>
+              </label>
+              <label class="field">
+                <span>Last Name</span>
+                <input type="text" name="last_name" autocomplete="family-name" required>
+              </label>
+              <label class="field">
+                <span>Phone Number</span>
+                <input type="tel" name="phone" autocomplete="tel" required>
+              </label>
+              <label class="field">
+                <span>Email Address</span>
+                <input type="email" name="email" autocomplete="email" required>
+              </label>
+              <label class="field">
+                <span>ZIP Code</span>
+                <input type="text" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required>
+              </label>
+              <p class="tcpa">By clicking "See My Matches," you agree that Military EDU Advisors and its partner schools or affiliates may contact you about education options by phone, email, text message, or automated technology at the contact information you provide. Consent is not required to purchase goods or services.</p>
+              <div class="quiz__actions">
+                <button class="btn" type="submit">See My Matches</button>
+              </div>
+              <div class="error" data-error="contact">Please complete all contact fields before continuing.</div>
+            </div>
+
+            <div class="quiz__step" data-step="matches">
+              <div class="quiz__eyebrow">You Have Been Matched</div>
+              <div class="quiz__question">Who would you like more information from? Click all that apply.</div>
+              <p class="quiz__helper">Your selected schools will receive your request through LeadHoop.</p>
+              <div class="school-list" id="school-list"></div>
+              <label class="tcpa">
+                <input type="checkbox" name="school_tcpa" required>
+                <span>By selecting schools and clicking submit, I authorize the selected schools, Military EDU Advisors, and their affiliates to contact me by phone, email, SMS, or prerecorded/artificial voice messages about education programs. Message and data rates may apply.</span>
+              </label>
+              <div class="quiz__actions">
+                <button class="btn btn--muted" type="button" data-back="contact">Back</button>
+                <button class="btn" type="submit" id="leadhoop-submit">Submit to Selected Schools</button>
+              </div>
+              <div class="error" data-error="matches">Select at least one school and agree to the consent language.</div>
+            </div>
+
+            <div class="quiz__step" data-step="complete">
+              <div class="quiz__success">Thanks! Your request has been submitted.</div>
+              <p class="quiz__helper">A representative from the school or schools you selected may contact you with program information.</p>
+            </div>
           </div>
         </form>
       </div>
@@ -967,18 +1185,233 @@
   <script>
     const menuButton = document.querySelector(".mobile-toggle");
     const nav = document.querySelector(".nav");
-    const options = document.querySelectorAll(".option");
 
     menuButton.addEventListener("click", () => {
       const open = nav.classList.toggle("is-open");
       menuButton.setAttribute("aria-expanded", String(open));
     });
 
-    options.forEach((option) => {
-      option.addEventListener("click", () => {
-        options.forEach((item) => item.classList.remove("is-selected"));
-        option.classList.add("is-selected");
+    const leadForm = document.querySelector("#lead-form");
+    const steps = [...document.querySelectorAll(".quiz__step")];
+    const backButtons = [...document.querySelectorAll("[data-back]")];
+    const leadhoopEndpoint = leadForm.dataset.leadhoopEndpoint;
+    const state = {
+      programInterest: "",
+      highSchoolGradYear: "",
+      militaryAffiliation: "",
+      contact: {},
+      matchedSchools: []
+    };
+
+    const schoolCatalog = {
+      "Business": [
+        { id: "amridge-business", name: "Amridge University", programs: "Business administration, management, and accounting" },
+        { id: "apus-business", name: "American Public University", programs: "Business, logistics, project management, and HR" },
+        { id: "purdue-business", name: "Purdue Global", programs: "Business administration and finance pathways" }
+      ],
+      "Computers & IT": [
+        { id: "wgu-it", name: "Western Governors University", programs: "Cloud computing, cybersecurity, and network engineering" },
+        { id: "snhu-it", name: "Southern New Hampshire University", programs: "Computer science, IT, and data analytics" },
+        { id: "ctu-it", name: "Colorado Technical University", programs: "Cybersecurity, software systems, and IT management" }
+      ],
+      "Healthcare": [
+        { id: "rasmussen-health", name: "Rasmussen University", programs: "Nursing, medical assisting, and health sciences" },
+        { id: "south-health", name: "South University", programs: "Healthcare administration, nursing, and allied health" },
+        { id: "herzing-health", name: "Herzing University", programs: "Nursing, medical billing, and healthcare management" }
+      ],
+      "Trades": [
+        { id: "uti-trades", name: "Universal Technical Institute", programs: "Automotive, diesel, welding, and CNC programs" },
+        { id: "lincoln-tech-trades", name: "Lincoln Tech", programs: "HVAC, electrical, welding, and skilled trades" },
+        { id: "fortis-trades", name: "Fortis", programs: "HVAC, electrical trades, and technician training" }
+      ],
+      "Art & Design": [
+        { id: "academy-art-design", name: "Academy of Art University", programs: "Graphic design, animation, and visual arts" },
+        { id: "full-sail-design", name: "Full Sail University", programs: "Digital arts, game art, and media design" },
+        { id: "scad-design", name: "SCAD", programs: "Design, media arts, and creative technology" }
+      ],
+      "Education & Teaching": [
+        { id: "gcu-education", name: "Grand Canyon University", programs: "Teacher preparation and education leadership" },
+        { id: "wgu-education", name: "Western Governors University", programs: "Elementary, special education, and licensure pathways" },
+        { id: "liberty-education", name: "Liberty University", programs: "Teaching, curriculum, and educational studies" }
+      ],
+      "Law & Criminal Justice": [
+        { id: "purdue-justice", name: "Purdue Global", programs: "Criminal justice, legal studies, and public safety" },
+        { id: "apus-justice", name: "American Public University", programs: "Homeland security, legal studies, and corrections" },
+        { id: "snhu-justice", name: "Southern New Hampshire University", programs: "Criminal justice and law enforcement administration" }
+      ],
+      "Liberal Arts & Humanities": [
+        { id: "asu-humanities", name: "Arizona State University Online", programs: "Liberal studies, communication, and humanities" },
+        { id: "snhu-humanities", name: "Southern New Hampshire University", programs: "English, history, and communication" },
+        { id: "umgc-humanities", name: "University of Maryland Global Campus", programs: "Humanities, communication, and interdisciplinary studies" }
+      ],
+      "Social Science": [
+        { id: "umgc-social", name: "University of Maryland Global Campus", programs: "Psychology, social science, and public safety" },
+        { id: "asu-social", name: "Arizona State University Online", programs: "Sociology, psychology, and family studies" },
+        { id: "liberty-social", name: "Liberty University", programs: "Human services, psychology, and social sciences" }
+      ]
+    };
+
+    const showStep = (name) => {
+      steps.forEach((step) => {
+        step.classList.toggle("is-active", step.dataset.step === name);
       });
+    };
+
+    const setError = (stepName, message = "") => {
+      const error = document.querySelector(`[data-error="${stepName}"]`);
+      if (!error) return;
+      error.textContent = message;
+      error.classList.toggle("is-visible", Boolean(message));
+    };
+
+    const updateStepHead = (title, subtitle) => {
+      document.querySelector(".quiz__head h2").textContent = title;
+      document.querySelector(".quiz__head p").textContent = subtitle;
+    };
+
+    const activeStepName = () => document.querySelector(".quiz__step.is-active").dataset.step;
+
+    const getContactData = () => ({
+      firstName: leadForm.elements.first_name.value.trim(),
+      lastName: leadForm.elements.last_name.value.trim(),
+      phone: leadForm.elements.phone.value.trim(),
+      email: leadForm.elements.email.value.trim(),
+      zip: leadForm.elements.zip.value.trim()
+    });
+
+    const validateEducation = () => {
+      const gradYear = leadForm.elements.graduation_year.value.trim();
+      const yearNumber = Number(gradYear);
+      if (!/^\d{4}$/.test(gradYear) || yearNumber < 1940 || yearNumber > 2035) {
+        setError("education", "Please enter a valid four-digit high school graduation year.");
+        return false;
+      }
+      setError("education");
+      state.highSchoolGradYear = gradYear;
+      return true;
+    };
+
+    const validateContact = () => {
+      const data = getContactData();
+      const validPhone = data.phone.replace(/\D/g, "").length >= 10;
+      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+      const validZip = /^\d{5}$/.test(data.zip);
+
+      if (Object.values(data).some((value) => !value)) {
+        setError("contact", "Please complete each contact field.");
+        return false;
+      }
+      if (!validPhone || !validEmail || !validZip) {
+        setError("contact", "Please enter a valid phone number, email address, and five-digit ZIP code.");
+        return false;
+      }
+
+      setError("contact");
+      state.contact = data;
+      return true;
+    };
+
+    const buildSchoolCards = () => {
+      const list = document.querySelector("#school-list");
+      const schools = schoolCatalog[state.programInterest] || schoolCatalog.Business;
+      state.matchedSchools = schools;
+      list.innerHTML = schools.map((school) => `
+        <label class="school-card">
+          <input type="checkbox" name="selectedSchools" value="${school.id}">
+          <span>
+            <strong>${school.name}</strong>
+            <span>${school.programs}</span>
+          </span>
+        </label>
+      `).join("");
+    };
+
+    document.querySelectorAll("[data-program]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.programInterest = button.dataset.program;
+        document.querySelectorAll("[data-program]").forEach((item) => item.classList.remove("is-selected"));
+        button.classList.add("is-selected");
+
+        if (state.programInterest === "Other") {
+          updateStepHead("Find Your Program", "Choose the field that best fits your goals.");
+          showStep("program-other");
+          return;
+        }
+
+        updateStepHead("A Few Quick Details", "This helps schools confirm eligibility.");
+        showStep("education");
+      });
+    });
+
+    document.querySelectorAll("[data-military]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!validateEducation()) return;
+        state.militaryAffiliation = button.dataset.military;
+        document.querySelectorAll("[data-military]").forEach((item) => item.classList.remove("is-selected"));
+        button.classList.add("is-selected");
+        updateStepHead("Last Step", "How does a school representative get ahold of you?");
+        showStep("contact");
+      });
+    });
+
+    backButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        updateStepHead("Last Step", "How does a school representative get ahold of you?");
+        showStep(button.dataset.back);
+      });
+    });
+
+    leadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (activeStepName() === "contact") {
+        if (!validateContact()) return;
+        buildSchoolCards();
+        updateStepHead("You've Been Matched", "Who would you like more information from?");
+        showStep("matches");
+        return;
+      }
+
+      const selectedSchools = [...leadForm.querySelectorAll("input[name='selectedSchools']:checked")].map((input) => input.value);
+      if (!selectedSchools.length) {
+        setError("matches", "Please select at least one school.");
+        return;
+      }
+      if (!leadForm.elements.school_tcpa.checked) {
+        setError("matches", "Please agree to the selected schools' consent language.");
+        return;
+      }
+
+      setError("matches");
+      const payload = {
+        source: "Military EDU Advisors",
+        program_interest: state.programInterest,
+        high_school_graduation_year: state.highSchoolGradYear,
+        military_or_guard_reserve_affiliation: state.militaryAffiliation,
+        first_name: state.contact.firstName,
+        last_name: state.contact.lastName,
+        phone: state.contact.phone,
+        email: state.contact.email,
+        zip: state.contact.zip,
+        selected_school_ids: selectedSchools,
+        selected_schools: state.matchedSchools.filter((school) => selectedSchools.includes(school.id)),
+        tcpa_consent: true,
+        tcpa_timestamp: new Date().toISOString(),
+        user_agent: navigator.userAgent
+      };
+
+      if (leadhoopEndpoint) {
+        await fetch(leadhoopEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } else {
+        console.info("LeadHoop endpoint not configured. Submission payload:", payload);
+      }
+
+      updateStepHead("Request Submitted", "Your selected schools will follow up shortly.");
+      document.querySelector("[data-step='matches']").innerHTML = '<div class="quiz__success">Thanks. Your school selections have been received.</div>';
     });
   </script>
 </body>
