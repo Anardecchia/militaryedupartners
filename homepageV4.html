@@ -131,7 +131,15 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 @media(min-width:1024px){ .hero__badges--desktop { display:flex; } .hero__badges--mobile { display:none; } }
 
 /* ── LEAD FORM ── */
-.form-card { background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); overflow:hidden; }
+.form-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
+  isolation: isolate;
+}
 .form-card__header { background:var(--dark2); padding:14px 20px; text-align:center; }
 .form-card__title { font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--white); }
 .form-card__sub { font-size:13px; color:var(--silver); margin-top:2px; }
@@ -266,6 +274,52 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 .footer__bottom { border-top:1px solid rgba(255,255,255,0.06); padding-top:20px; text-align:center; }
 .footer__disclaimer { font-size:11px; color:rgba(255,255,255,0.35); line-height:1.6; max-width:700px; margin:0 auto 10px; }
 .footer__copy { font-size:12px; color:rgba(255,255,255,0.3); }
+
+ /* ── FEATURED SCHOOLS ── */
+.featured-schools { background: #ffffff; padding: 56px 0; }
+@media(min-width:768px) { .featured-schools { padding: 72px 0; } }
+
+.featured-schools__head { text-align: center; max-width: 720px; margin: 0 auto 36px; }
+.featured-schools__head .section-sub { margin: 10px auto 0; }
+
+.featured-grid { display: grid; gap: 24px; }
+@media(min-width:900px) { .featured-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+
+.featured-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--crimson);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+.featured-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: var(--crimson); border-top-color: var(--crimson); }
+
+.featured-card__logo { height: 64px; width: auto; max-width: 240px; object-fit: contain; object-position: left center; margin-bottom: 16px; }
+.featured-card h3 { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.1; }
+.featured-card__meta { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+.featured-card__desc { font-size: 14.5px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+
+.featured-card__list { list-style: none; padding: 0; margin: 0 0 22px 0; display: flex; flex-direction: column; gap: 10px; }
+.featured-card__list li { position: relative; padding-left: 26px; font-size: 14px; color: var(--text); line-height: 1.5; }
+.featured-card__list li::before {
+  content: ''; position: absolute; left: 0; top: 4px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--green-bg);
+  box-shadow: inset 0 0 0 1px var(--green-border, #BBF7D0);
+}
+.featured-card__list li::after {
+  content: ''; position: absolute; left: 5px; top: 8px;
+  width: 6px; height: 3px;
+  border-left: 2px solid var(--green);
+  border-bottom: 2px solid var(--green);
+  transform: rotate(-45deg);
+}
+
+.featured-card__cta { margin-top: auto; }
+.featured-card__cta .btn { width: 100%; } 
 
 /* ── REVEAL ── */
 .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
@@ -509,7 +563,65 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
     <a href="#mea-lead-form" class="btn btn--primary btn--arrow" style="margin-top:32px">Start Your Free Match</a>
   </div>
 </section>
+  
+<!-- Featured Schools -->
+<section class="featured-schools" id="featured-schools">
+  <div class="container">
+    <div class="featured-schools__head reveal">
+      <div class="eyebrow">Featured Schools</div>
+      <h2 class="section-title">Schools Built for Military Students</h2>
+      <p class="section-sub">Two of our top partner institutions offering preferred pricing, dedicated veteran services, and flexible programs designed for your schedule.</p>
+    </div>
 
+    <div class="featured-grid">
+
+      <article class="featured-card reveal reveal--d1">
+        <img class="featured-card__logo"
+             src="https://www.militaryeduadvisors.com/wp-content/uploads/2026/04/HCU-Logo.png"
+             alt="Houston Christian University logo"
+             loading="lazy">
+        <h3>Houston Christian University</h3>
+        <div class="featured-card__meta">Houston, TX &nbsp;&middot;&nbsp; On-Campus &amp; Online</div>
+        <p class="featured-card__desc">A faith-based university with a strong commitment to serving those who served &mdash; empowering veterans, service members, and their families with the resources to succeed.</p>
+        <ul class="featured-card__list">
+          <li>Yellow Ribbon Program &mdash; no out-of-pocket costs for eligible veterans</li>
+          <li>Dedicated Veterans Lounge, free printing, lockers, and DV parking</li>
+          <li>Online tuition discounts plus tuition equalization grants</li>
+          <li>Special tuition pricing for military spouses and dependents</li>
+        </ul>
+        <div class="featured-card__cta">
+          <a href="https://www.militaryeduadvisors.com/educational-institutions-search/houston-christian-university/"
+             class="btn btn--primary btn--arrow"
+             target="_blank"
+             rel="noopener">Request Info from HCU</a>
+        </div>
+      </article>
+
+      <article class="featured-card reveal reveal--d2">
+        <img class="featured-card__logo"
+             src="https://www.militaryeduadvisors.com/wp-content/uploads/2024/07/Horizontal-Logo-Transparent-300x73.png"
+             alt="Waldorf University logo"
+             loading="lazy">
+        <h3>Waldorf University</h3>
+        <div class="featured-card__meta">Forest City, IA &nbsp;&middot;&nbsp; 100% Online</div>
+        <p class="featured-card__desc">A military-friendly online university designed for service members balancing busy schedules &mdash; with built-in flexibility, books included, and a dedicated military admissions team.</p>
+        <ul class="featured-card__list">
+          <li>Tuition at or below the $250 TA cap on undergraduate courses</li>
+          <li>Books included &amp; tech fees waived &mdash; no surprise charges</li>
+          <li>ArmyIgnitED, CCAF GEM, and AU-ABC partner &mdash; five-star Air Force rating</li>
+          <li>Generous military training credit transfer beyond electives</li>
+        </ul>
+        <div class="featured-card__cta">
+          <a href="https://www.militaryeduadvisors.com/educational-institutions-search/waldorf-university/"
+             class="btn btn--primary btn--arrow"
+             target="_blank"
+             rel="noopener">Request Info from Waldorf</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
 <!-- PROGRAMS -->
 <section class="section section--light">
   <div class="container">
