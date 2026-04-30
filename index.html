@@ -98,37 +98,10 @@
       min-width: max-content;
     }
 
-    .brand__mark {
-      display: grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      color: #fff;
-      background: var(--red);
-      border-radius: 4px;
-      font-family: var(--display);
-      font-size: 18px;
-      font-weight: 800;
-      transform: skew(-7deg);
-    }
-
-    .brand__text {
-      color: var(--red);
-      font-family: var(--display);
-      font-size: 20px;
-      font-weight: 800;
-      line-height: 0.9;
-      text-transform: uppercase;
-    }
-
-    .brand__text small {
+    .brand__logo {
       display: block;
-      color: #5d6470;
-      font-family: var(--body);
-      font-size: 8px;
-      font-weight: 800;
-      letter-spacing: 0.24em;
-      margin-top: 3px;
+      width: min(230px, 58vw);
+      height: auto;
     }
 
     .nav {
@@ -456,6 +429,20 @@
     .tcpa input {
       margin-top: 2px;
       accent-color: var(--red);
+    }
+
+    .tcpa a {
+      color: var(--red);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .tcpa a {
+      color: var(--red);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     .tcpa--inline {
@@ -823,8 +810,8 @@
         font-size: 10px;
       }
 
-      .brand__text {
-        font-size: 17px;
+      .brand__logo {
+        width: min(205px, 62vw);
       }
 
       .hero__inner {
@@ -1024,9 +1011,14 @@
 
   <header class="header">
     <div class="container header__inner">
-      <a class="brand" href="#">
-        <span class="brand__mark">M</span>
-        <span class="brand__text">Military EDU Advisors<small>Education Benefits</small></span>
+      <a class="brand" href="#" aria-label="Military EDU Advisors home">
+        <svg class="brand-logo" viewBox="0 0 760 160" role="img" aria-labelledby="brand-logo-title">
+          <title id="brand-logo-title">Military EDU Advisors</title>
+          <path fill="#b01632" d="M22 20h134v30c0 23-4 45-11 66l-8 24-31 16-30-16-8-24c-7-21-11-43-11-66V39H22z"/>
+          <path fill="#8b8d87" d="M10 105c35 2 64 10 96 28 32-18 61-26 96-28l-8 19c-31 3-56 11-88 30-32-19-57-27-88-30z"/>
+          <path fill="#b01632" d="M252 52h31l18 52 18-52h31v78h-21V82l-20 48h-17l-20-48v48h-20zm118 0h22v78h-22zm44 0h23v58h37v20h-60zm83 0h22v78h-22zm45 0h65v20h-21v58h-22V72h-22zm95 0h25l31 78h-24l-5-15h-30l-5 15h-23zm21 45-9-27-9 27zm56-45h38c21 0 34 11 34 29 0 12-6 21-17 26l21 23h-27l-18-20h-9v20h-22zm36 40c9 0 14-4 14-11s-5-11-14-11h-14v22z"/>
+          <path fill="#8b8d87" d="M252 146h500v8H252z"/>
+        </svg>
       </a>
       <button class="mobile-toggle" type="button" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -1111,7 +1103,10 @@
                   <input type="text" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required>
                 </label>
               </div>
-              <p class="tcpa tcpa--inline">By clicking "See My Matches," you agree that Military EDU Advisors and partner schools may contact you about education options by phone, email, text, or automated technology. Consent is not required to purchase goods or services.</p>
+              <label class="tcpa">
+                <input type="checkbox" name="contact_tcpa" required>
+                <span>By checking this box and clicking See my matches, I provide my electronic signature and express written consent for Military EDU Advisors and its educational partners and affiliates to contact me at the phone number and email address I provided &mdash; including via automated telephone dialing systems, pre-recorded or artificial voice messages, and SMS/text messages &mdash; regarding educational programs and related services, even if my number is on a federal or state Do Not Call list. Message and data rates may apply. My consent is not required as a condition of purchasing any goods or services. I am at least 18 years old and a U.S. resident. I have read and agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>.</span>
+              </label>
               <div class="quiz__actions">
                 <button class="btn" type="submit">See My Matches</button>
               </div>
@@ -1295,9 +1290,14 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <a class="brand" href="#">
-            <span class="brand__mark">M</span>
-            <span class="brand__text">Military EDU Advisors<small>Education Benefits</small></span>
+          <a class="brand" href="#" aria-label="Military EDU Advisors home">
+            <svg class="brand-logo" viewBox="0 0 760 160" role="img" aria-labelledby="footer-brand-logo-title">
+              <title id="footer-brand-logo-title">Military EDU Advisors</title>
+              <path fill="#b01632" d="M22 20h134v30c0 23-4 45-11 66l-8 24-31 16-30-16-8-24c-7-21-11-43-11-66V39H22z"/>
+              <path fill="#8b8d87" d="M10 105c35 2 64 10 96 28 32-18 61-26 96-28l-8 19c-31 3-56 11-88 30-32-19-57-27-88-30z"/>
+              <path fill="#b01632" d="M252 52h31l18 52 18-52h31v78h-21V82l-20 48h-17l-20-48v48h-20zm118 0h22v78h-22zm44 0h23v58h37v20h-60zm83 0h22v78h-22zm45 0h65v20h-21v58h-22V72h-22zm95 0h25l31 78h-24l-5-15h-30l-5 15h-23zm21 45-9-27-9 27zm56-45h38c21 0 34 11 34 29 0 12-6 21-17 26l21 23h-27l-18-20h-9v20h-22zm36 40c9 0 14-4 14-11s-5-11-14-11h-14v22z"/>
+              <path fill="#8b8d87" d="M252 146h500v8H252z"/>
+            </svg>
           </a>
           <p>Helping military service members, veterans, and their families find accredited education programs that honor their service and their benefits.</p>
         </div>
@@ -1452,6 +1452,10 @@
         setError("contact", "Please enter a valid phone number, email address, and five-digit ZIP code.");
         return false;
       }
+      if (!leadForm.elements.contact_tcpa.checked) {
+        setError("contact", "Please check the consent box before seeing your matches.");
+        return false;
+      }
 
       setError("contact");
       state.contact = data;
@@ -1542,6 +1546,8 @@
         zip: state.contact.zip,
         selected_school_ids: selectedSchools,
         selected_schools: state.matchedSchools.filter((school) => selectedSchools.includes(school.id)),
+        contact_tcpa_consent: true,
+        school_tcpa_consent: true,
         tcpa_consent: true,
         tcpa_timestamp: new Date().toISOString(),
         user_agent: navigator.userAgent
