@@ -336,7 +336,26 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 </style>
 </head>
 <body>
-
+<script>
+// TEMP DIAGNOSTIC — remove after debugging
+(function(){
+  console.log('=== FORM DIAGNOSTIC START ===');
+  const opts = document.querySelectorAll('.form-option, [data-step][data-value]');
+  console.log('Form options found:', opts.length);
+  const steps = document.querySelectorAll('.form-step, [data-step]');
+  console.log('Form steps found:', steps.length);
+  steps.forEach(s => console.log('  step:', s.getAttribute('data-step'), 'classes:', s.className));
+  opts.forEach(b => {
+    b.addEventListener('click', function(e){
+      console.log('CLICKED:', this.getAttribute('data-step'), this.getAttribute('data-value'));
+      console.log('  Has selected class?', this.classList.contains('selected'));
+      const cur = document.querySelector('.form-step.active');
+      console.log('  Currently active step:', cur ? cur.getAttribute('data-step') : 'NONE');
+    }, true); // capture phase, fires before any other handler
+  });
+  console.log('=== FORM DIAGNOSTIC READY ===');
+})();
+</script>
 <!-- TOP BAR -->
 <div class="topbar">
   Trusted by 5,000+ Military Families <span>&middot;</span> Not affiliated with U.S. Government
