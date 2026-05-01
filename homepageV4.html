@@ -337,6 +337,29 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 </head>
 <body>
 <script>
+// TEMP DIAGNOSTIC — remove after debugging
+(function(){
+  console.log('=== FORM DIAGNOSTIC START ===');
+  const opts = document.querySelectorAll('.form-option, [data-step][data-value]');
+  console.log('Form options found:', opts.length);
+  const steps = document.querySelectorAll('.form-step, [data-step]');
+  console.log('Form steps found:', steps.length);
+  steps.forEach(s => console.log('  step:', s.getAttribute('data-step'), 'classes:', s.className));
+  opts.forEach(b => {
+    b.addEventListener('click', function(e){
+      console.log('CLICKED:', this.getAttribute('data-step'), this.getAttribute('data-value'));
+      console.log('  Has selected class?', this.classList.contains('selected'));
+      const cur = document.querySelector('.form-step.active');
+      console.log('  Currently active step:', cur ? cur.getAttribute('data-step') : 'NONE');
+    }, true); // capture phase, fires before any other handler
+  });
+  console.log('=== FORM DIAGNOSTIC READY ===');
+})();
+</script>
+<!-- TOP BAR -->
+<div class="topbar">
+  Trusted by 5,000+ Military Families <span>&middot;</span> Not affiliated with U.S. Government
+</div>
 
 <!-- HEADER -->
 <header class="header">
@@ -401,314 +424,122 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
       <h1>Find Schools That Accept Your <em>GI Bill</em> &mdash; 60 Seconds</h1>
       <p class="hero__sub">We match military service members, veterans, and spouses with accredited programs that honor your service and your benefits. Free. No obligation.</p>
     </div>
-  <script>
-(function() {
-  'use strict';
-
-  // ============================================================
-  // CONFIG — adjust if your data attributes are different
-  // ============================================================
-  const FORM_SELECTOR     = '.form-card, form, [data-form="lead"]';   // try to find the form container
-  const STEP_SELECTOR     = '.form-step';
-  const OPTION_SELECTOR   = '.form-option, .mea-opt';
-  const ACTIVE_CLASS      = 'active';
-  const SELECTED_CLASS    = 'selected';
-  const ERROR_CLASS       = 'is-visible';
-
-  // School catalog — mapped to the data-value of the program option
-  const SCHOOL_CATALOG = {
-    'business':                { name: 'Business', schools: [
-      { id: 'amridge-business',     name: 'Amridge University',                    programs: 'Business administration, management, and accounting' },
-      { id: 'apus-business',        name: 'American Public University',            programs: 'Business, logistics, project management, and HR' },
-      { id: 'purdue-business',      name: 'Purdue Global',                         programs: 'Business administration and finance pathways' }
-    ]},
-    'healthcare':              { name: 'Healthcare & Nursing', schools: [
-      { id: 'rasmussen-health',     name: 'Rasmussen University',                  programs: 'Nursing, medical assisting, and health sciences' },
-      { id: 'south-health',         name: 'South University',                      programs: 'Healthcare administration, nursing, and allied health' },
-      { id: 'herzing-health',       name: 'Herzing University',                    programs: 'Nursing, medical billing, and healthcare management' }
-    ]},
-    'it':                      { name: 'Technology & IT', schools: [
-      { id: 'wgu-it',               name: 'Western Governors University',          programs: 'Cloud computing, cybersecurity, and network engineering' },
-      { id: 'snhu-it',              name: 'Southern New Hampshire University',     programs: 'Computer science, IT, and data analytics' },
-      { id: 'ctu-it',               name: 'Colorado Technical University',         programs: 'Cybersecurity, software systems, and IT management' }
-    ]},
-    'trades':                  { name: 'Trade Programs', schools: [
-      { id: 'uti-trades',           name: 'Universal Technical Institute',         programs: 'Automotive, diesel, welding, and CNC programs' },
-      { id: 'lincoln-tech-trades',  name: 'Lincoln Tech',                          programs: 'HVAC, electrical, welding, and skilled trades' },
-      { id: 'fortis-trades',        name: 'Fortis',                                programs: 'HVAC, electrical trades, and technician training' }
-    ]},
-    'education':               { name: 'Teaching & Education', schools: [
-      { id: 'gcu-education',        name: 'Grand Canyon University',               programs: 'Teacher preparation and education leadership' },
-      { id: 'wgu-education',        name: 'Western Governors University',          programs: 'Elementary, special education, and licensure pathways' },
-      { id: 'liberty-education',    name: 'Liberty University',                    programs: 'Teaching, curriculum, and educational studies' }
-    ]},
-    'art':                     { name: 'Art & Design', schools: [
-      { id: 'academy-art-design',   name: 'Academy of Art University',             programs: 'Graphic design, animation, and visual arts' },
-      { id: 'full-sail-design',     name: 'Full Sail University',                  programs: 'Digital arts, game art, and media design' },
-      { id: 'scad-design',          name: 'SCAD',                                  programs: 'Design, media arts, and creative technology' }
-    ]},
-    'law':                     { name: 'Law & Criminal Justice', schools: [
-      { id: 'purdue-justice',       name: 'Purdue Global',                         programs: 'Criminal justice, legal studies, and public safety' },
-      { id: 'apus-justice',         name: 'American Public University',            programs: 'Homeland security, legal studies, and corrections' },
-      { id: 'snhu-justice',         name: 'Southern New Hampshire University',     programs: 'Criminal justice and law enforcement administration' }
-    ]},
-    'liberal-arts':            { name: 'Liberal Arts & Humanities', schools: [
-      { id: 'asu-humanities',       name: 'Arizona State University Online',       programs: 'Liberal studies, communication, and humanities' },
-      { id: 'snhu-humanities',      name: 'Southern New Hampshire University',     programs: 'English, history, and communication' },
-      { id: 'umgc-humanities',      name: 'University of Maryland Global Campus',  programs: 'Humanities, communication, and interdisciplinary studies' }
-    ]},
-    'social':                  { name: 'Social Science', schools: [
-      { id: 'umgc-social',          name: 'University of Maryland Global Campus',  programs: 'Psychology, social science, and public safety' },
-      { id: 'asu-social',           name: 'Arizona State University Online',       programs: 'Sociology, psychology, and family studies' },
-      { id: 'liberty-social',       name: 'Liberty University',                    programs: 'Human services, psychology, and social sciences' }
-    ]}
-  };
-
-  // ============================================================
-  // STATE
-  // ============================================================
-  const state = {
-    answers: {},          // { step: value }
-    program: '',          // selected program data-value
-    history: [1],         // step number history for back nav
-    matchedSchools: []
-  };
-
-  // ============================================================
-  // FIND ELEMENTS
-  // ============================================================
-  const form = document.querySelector(FORM_SELECTOR) || document.body;
-  const allSteps = Array.from(document.querySelectorAll(STEP_SELECTOR));
-  const stepCount = allSteps.length;
-
-  if (stepCount === 0) {
-    console.error('[FORM] No form steps found. Check that elements have class "form-step".');
-    return;
-  }
-
-  console.log('[FORM] Initialized. Found', stepCount, 'steps.');
-
-  // ============================================================
-  // HELPERS
-  // ============================================================
-  function getStepEl(stepNum) {
-    return allSteps.find(s => s.getAttribute('data-step') == String(stepNum));
-  }
-
-  function showStep(stepNum) {
-    allSteps.forEach(s => s.classList.remove(ACTIVE_CLASS));
-    const target = getStepEl(stepNum);
-    if (target) {
-      target.classList.add(ACTIVE_CLASS);
-      // Update progress bar if present
-      const fill = document.querySelector('.form-progress__fill, [data-progress-fill]');
-      if (fill) {
-        const totalNonSuccess = stepCount; // includes potential success step
-        const pct = Math.min(100, Math.round((stepNum / Math.max(1, stepCount - 1)) * 100));
-        fill.style.width = pct + '%';
-      }
-      const counter = document.querySelector('.form-step-counter, [data-step-counter]');
-      if (counter) {
-        counter.textContent = 'Step ' + stepNum + ' of ' + (stepCount - 1);
-      }
-      // Scroll into view on mobile
-      if (window.innerWidth < 900) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }
-  }
-
-  function clearSiblingSelection(button) {
-    const stepEl = button.closest('.form-step');
-    if (!stepEl) return;
-    stepEl.querySelectorAll('.' + SELECTED_CLASS).forEach(el => {
-      if (el !== button) el.classList.remove(SELECTED_CLASS);
-    });
-  }
-
-  function setError(stepNum, msg) {
-    const stepEl = getStepEl(stepNum);
-    if (!stepEl) return;
-    let err = stepEl.querySelector('.form-error, [data-error]');
-    if (!err && msg) {
-      err = document.createElement('div');
-      err.className = 'form-error';
-      err.style.cssText = 'color:#9B1C1C; font-size:13px; font-weight:600; margin-top:10px;';
-      const nav = stepEl.querySelector('.form-nav');
-      if (nav) {
-        nav.parentNode.insertBefore(err, nav);
-      } else {
-        stepEl.appendChild(err);
-      }
-    }
-    if (err) {
-      err.textContent = msg || '';
-      err.style.display = msg ? 'block' : 'none';
-    }
-  }
-
-  // ============================================================
-  // RADIO/OPTION CLICK HANDLER
-  // ============================================================
-  document.addEventListener('click', function(e) {
-    const opt = e.target.closest(OPTION_SELECTOR);
-    if (!opt) return;
-
-    e.preventDefault();
-    const stepAttr = opt.getAttribute('data-step');
-    const value = opt.getAttribute('data-value');
-
-    if (!stepAttr) {
-      console.warn('[FORM] Option clicked but no data-step attribute:', opt);
-      return;
-    }
-
-    const stepNum = parseInt(stepAttr, 10);
-
-    // Mark selected (clear siblings)
-    clearSiblingSelection(opt);
-    opt.classList.add(SELECTED_CLASS);
-
-    // Save answer
-    state.answers[stepNum] = value;
-    if (stepNum === 1) state.program = value || '';
-
-    setError(stepNum, '');
-
-    // Auto-advance after short delay (so user sees the selection)
-    setTimeout(function() {
-      const nextStep = stepNum + 1;
-      const nextEl = getStepEl(nextStep);
-      if (nextEl) {
-        if (!state.history.includes(nextStep)) state.history.push(nextStep);
-        showStep(nextStep);
-        // If we're advancing to the matches step, build it
-        if (nextEl.getAttribute('data-matches') === 'true' || nextStep === stepCount) {
-          buildMatches();
-        }
-      }
-    }, 200);
-  });
-
-  // ============================================================
-  // BACK BUTTON HANDLER
-  // ============================================================
-  document.addEventListener('click', function(e) {
-    const backBtn = e.target.closest('[data-back], .form-back');
-    if (!backBtn) return;
-    e.preventDefault();
-
-    if (state.history.length > 1) {
-      state.history.pop();
-      const prev = state.history[state.history.length - 1];
-      showStep(prev);
-    }
-  });
-
-  // ============================================================
-  // FINAL SUBMIT (on the contact step's "Find My Schools" / "Search For Schools" button)
-  // ============================================================
-  document.addEventListener('click', function(e) {
-    const submitBtn = e.target.closest(
-      '#mea-form-submit, [data-form-submit], button.btn--primary[type="button"]'
-    );
-    if (!submitBtn) return;
-
-    // Only act if the button is inside an active form-step (not nav/header)
-    const inActiveStep = submitBtn.closest('.form-step.' + ACTIVE_CLASS);
-    if (!inActiveStep) return;
-
-    e.preventDefault();
-
-    // Gather contact fields from the active step
-    const stepEl = inActiveStep;
-    const inputs = stepEl.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
-    const consent = stepEl.querySelector('input[type="checkbox"]');
-
-    const data = {};
-    let allFilled = true;
-    inputs.forEach(function(inp) {
-      const v = (inp.value || '').trim();
-      const key = inp.getAttribute('autocomplete') || inp.getAttribute('placeholder') || inp.name || 'field';
-      data[key] = v;
-      if (!v) allFilled = false;
-    });
-
-    const stepNum = parseInt(stepEl.getAttribute('data-step'), 10);
-
-    if (!allFilled) {
-      setError(stepNum, 'Please complete every field.');
-      return;
-    }
-    if (consent && !consent.checked) {
-      setError(stepNum, 'Please check the consent box to continue.');
-      return;
-    }
-    setError(stepNum, '');
-
-    // Capture contact for payload
-    state.answers.contact = data;
-
-    // Move to the success/matches step (last step or [data-success])
-    const successEl = document.querySelector('.form-success, [data-step="success"]')
-                   || getStepEl(stepCount);
-    if (successEl) {
-      allSteps.forEach(s => s.classList.remove(ACTIVE_CLASS));
-      successEl.classList.add(ACTIVE_CLASS);
-      const counter = document.querySelector('.form-step-counter, [data-step-counter]');
-      if (counter) counter.textContent = 'Submitted';
-      const fill = document.querySelector('.form-progress__fill, [data-progress-fill]');
-      if (fill) fill.style.width = '100%';
-    }
-
-    // Log the payload (replace this with a fetch() to your LeadHoop endpoint)
-    const payload = {
-      source: 'Military EDU Advisors',
-      answers: state.answers,
-      program_interest: state.program,
-      timestamp: new Date().toISOString(),
-      user_agent: navigator.userAgent
-    };
-    console.info('[LEAD SUBMITTED]', payload);
-
-    // TODO: when LeadHoop endpoint is ready, swap this in:
-    // fetch('YOUR_LEADHOOP_URL', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(payload)
-    // });
-  });
-
-  // ============================================================
-  // BUILD MATCHED SCHOOLS LIST (if a matches container exists)
-  // ============================================================
-  function buildMatches() {
-    const list = document.querySelector('#form-school-list, [data-school-list]');
-    if (!list) return;
-
-    const programKey = (state.program || '').toLowerCase();
-    const catalog = SCHOOL_CATALOG[programKey] || SCHOOL_CATALOG['business'];
-    state.matchedSchools = catalog.schools;
-
-    list.innerHTML = catalog.schools.map(function(s) {
-      return '<label class="form-school" style="display:grid; grid-template-columns:18px 1fr; gap:12px; align-items:flex-start; padding:14px; background:#F5F6F8; border:2px solid #E2E6ED; border-radius:6px; cursor:pointer; margin-bottom:10px;">' +
-               '<input type="checkbox" name="selected_schools" value="' + s.id + '" checked style="width:18px; height:18px; accent-color:#9B1C1C;">' +
-               '<span>' +
-                 '<strong style="display:block; font-family:Barlow Condensed, sans-serif; font-size:17px; font-weight:700; color:#1A1A1A;">' + s.name + '</strong>' +
-                 '<span style="display:block; font-size:13px; color:#6B7280; margin-top:4px;">' + s.programs + '</span>' +
-               '</span>' +
-             '</label>';
-    }).join('');
-  }
-
-  // ============================================================
-  // INIT — make sure step 1 is showing
-  // ============================================================
-  if (allSteps.length > 0 && !document.querySelector('.form-step.' + ACTIVE_CLASS)) {
-    showStep(1);
-  }
-})();
-</script> 
+    <div id="mea-lead-form">
+     <form class="quiz" id="lead-form" aria-label="School matching form" data-leadhoop-endpoint="" novalidate>
+          <div class="form-card__header">
+            <div class="form-card__title">Find Your School Match</div>
+            <div class="form-card__sub">Free. 60 seconds. No obligation.</div>
+          </div>
+          <div class="form-step-counter" id="form-step-counter">Step 1 of 4</div>
+          <div class="form-progress" aria-hidden="true">
+            <div class="form-progress__fill" id="form-progress-fill" style="width:25%"></div>
+          </div>
+ 
+          <!-- Step 1a: Program of Interest -->
+          <div class="form-step active" data-step="program-primary">
+            <div class="form-step__label">What program are you interested in?</div>
+            <div class="form-step__micro">Pick the field that fits your goals</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-program="Business"><span class="form-option__radio"></span>Business</button>
+              <button type="button" class="form-option" data-program="Healthcare &amp; Nursing"><span class="form-option__radio"></span>Healthcare &amp; Nursing</button>
+              <button type="button" class="form-option" data-program="Technology &amp; IT"><span class="form-option__radio"></span>Technology &amp; IT</button>
+              <button type="button" class="form-option" data-program="Trade Programs"><span class="form-option__radio"></span>Trade Programs</button>
+              <button type="button" class="form-option" data-program="Other" data-other><span class="form-option__radio"></span>Other</button>
+            </div>
+          </div>
+ 
+          <!-- Step 1b: Other Programs (only shown if 1a = Other) -->
+          <div class="form-step" data-step="program-other">
+            <div class="form-step__label">Which area best fits your goals?</div>
+            <div class="form-step__micro">Pick the field that's the closest match</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-program="Teaching &amp; Education"><span class="form-option__radio"></span>Teaching &amp; Education</button>
+              <button type="button" class="form-option" data-program="Art &amp; Design"><span class="form-option__radio"></span>Art &amp; Design</button>
+              <button type="button" class="form-option" data-program="Law &amp; Criminal Justice"><span class="form-option__radio"></span>Law &amp; Criminal Justice</button>
+              <button type="button" class="form-option" data-program="Liberal Arts &amp; Humanities"><span class="form-option__radio"></span>Liberal Arts &amp; Humanities</button>
+              <button type="button" class="form-option" data-program="Social Science"><span class="form-option__radio"></span>Social Science</button>
+            </div>
+            <div class="form-nav"><button type="button" class="form-back" data-back="program-primary">&larr; Back</button></div>
+          </div>
+ 
+          <!-- Step 2: Highest Level of Education -->
+          <div class="form-step" data-step="education-level">
+            <div class="form-step__label">What's your highest level of education?</div>
+            <div class="form-step__micro">This helps us find the right program level</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-education="High School Diploma or GED"><span class="form-option__radio"></span>High School Diploma or GED</button>
+              <button type="button" class="form-option" data-education="Some College (1-59 credits)"><span class="form-option__radio"></span>Some College (1-59 credits)</button>
+              <button type="button" class="form-option" data-education="Associate's Degree"><span class="form-option__radio"></span>Associate's Degree</button>
+              <button type="button" class="form-option" data-education="Bachelor's Degree"><span class="form-option__radio"></span>Bachelor's Degree</button>
+              <button type="button" class="form-option" data-education="Master's Degree"><span class="form-option__radio"></span>Master's Degree</button>
+              <button type="button" class="form-option" data-education="Doctorate or PhD"><span class="form-option__radio"></span>Doctorate or PhD</button>
+            </div>
+            <div class="form-nav"><button type="button" class="form-back" data-back-smart>&larr; Back</button></div>
+          </div>
+ 
+          <!-- Step 3: Grad Year + Military Affiliation -->
+          <div class="form-step" data-step="grad-military">
+            <div class="form-step__label">A couple quick details</div>
+            <div class="form-step__micro">This helps schools confirm eligibility</div>
+            <div class="form-fields">
+              <div class="form-field">
+                <label for="grad-year">Year of High School (or GED) Graduation</label>
+                <input type="number" id="grad-year" name="grad_year" placeholder="YYYY" min="1940" max="2030" inputmode="numeric" required>
+              </div>
+            </div>
+            <div class="form-step__sublabel">Are you or any immediate family members affiliated with the Military or Guard Reserve?</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-military="Yes"><span class="form-option__radio"></span>Yes</button>
+              <button type="button" class="form-option" data-military="No"><span class="form-option__radio"></span>No</button>
+            </div>
+            <div class="form-error" data-error="grad-military">Please enter a valid graduation year and select Yes or No.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="education-level">&larr; Back</button>
+              <button type="button" class="btn form-continue" data-continue="contact">Continue</button>
+            </div>
+          </div>
+ 
+          <!-- Step 4: Contact -->
+          <div class="form-step" data-step="contact">
+            <div class="form-step__label">How can a school representative reach you?</div>
+            <div class="form-step__micro">Your info is kept private and only shared with matched schools</div>
+            <div class="form-fields">
+              <div class="form-row">
+                <div class="form-field"><label for="first-name">First Name</label><input type="text" id="first-name" name="first_name" placeholder="First name" autocomplete="given-name" required></div>
+                <div class="form-field"><label for="last-name">Last Name</label><input type="text" id="last-name" name="last_name" placeholder="Last name" autocomplete="family-name" required></div>
+              </div>
+              <div class="form-field"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel" required></div>
+              <div class="form-field"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" required></div>
+              <div class="form-field"><label for="zip">Zip Code</label><input type="text" id="zip" name="zip" placeholder="85001" autocomplete="postal-code" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" required></div>
+              <label class="form-consent">
+                <input type="checkbox" id="contact-tcpa" name="contact_tcpa" required>
+                <span>By checking this box and clicking "Search For Schools," you agree that Military EDU Advisors and partner schools may contact you about education options by phone, email, text, or automated technology, including pre-recorded messages, even if your number is on a do-not-call list. Consent is not a condition of purchase. Message and data rates may apply.</span>
+              </label>
+            </div>
+            <div class="form-error" data-error="contact">Please complete all fields and check the consent box.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="grad-military">&larr; Back</button>
+              <button type="button" class="btn form-continue" id="form-submit-contact">Search For Schools</button>
+            </div>
+          </div>
+ 
+          <!-- Match step: schools to select -->
+          <div class="form-step" data-step="matches">
+            <div class="form-match__intro">
+              <h3>Congrats! You've Been Matched with These Schools</h3>
+              <p>Pick the schools you'd like to hear from. Check all that apply.</p>
+            </div>
+            <div class="form-match__list" id="form-school-list"></div>
+            <label class="form-consent">
+              <input type="checkbox" id="match-tcpa" name="match_tcpa" required>
+              <span>By selecting schools and clicking submit, I authorize the selected schools, Military EDU Advisors, and their affiliates to contact me by phone, email, SMS, or pre-recorded/artificial voice messages about education programs. Message and data rates may apply.</span>
+            </label>
+            <div class="form-error" data-error="matches">Please select at least one school and check the consent box.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="contact">&larr; Back</button>
+              <button type="button" class="btn form-continue" id="form-submit-final">Submit to Selected Schools</button>
+            </div>
+          </div>
  
           <!-- Success -->
           <div class="form-success" id="form-success">
