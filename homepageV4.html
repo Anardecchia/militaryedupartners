@@ -447,10 +447,141 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
             <div class="form-card__sub">Free. 60 seconds. No obligation.</div>
           </div>
           <div class="form-step-counter" id="form-step-counter">Step 1 of 4</div>
-          <div class="form-progress" aria-hidden="true">
+                 <div class="form-progress" aria-hidden="true">
             <div class="form-progress__fill" id="form-progress-fill" style="width:25%"></div>
           </div>
- 
+
+          <!-- STEP 1: program-primary -->
+          <div class="form-step active" data-step="program-primary">
+            <div class="form-step__label">What program are you interested in?</div>
+            <div class="form-step__micro">Pick the field that best fits your goals.</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-program="trades"><span class="form-option__radio"></span>Trades &amp; Skilled Labor</button>
+              <button type="button" class="form-option" data-program="healthcare"><span class="form-option__radio"></span>Healthcare</button>
+              <button type="button" class="form-option" data-program="business"><span class="form-option__radio"></span>Business</button>
+              <button type="button" class="form-option" data-program="it"><span class="form-option__radio"></span>Information Technology</button>
+              <button type="button" class="form-option" data-program="other" data-other="1"><span class="form-option__radio"></span>Other / Not Sure</button>
+            </div>
+          </div>
+
+          <!-- STEP 1b: program-other -->
+          <div class="form-step" data-step="program-other">
+            <div class="form-step__label">Tell us a bit more.</div>
+            <div class="form-step__micro">Which area sounds closest?</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-program="education"><span class="form-option__radio"></span>Education / Teaching</button>
+              <button type="button" class="form-option" data-program="psychology"><span class="form-option__radio"></span>Psychology / Counseling</button>
+              <button type="button" class="form-option" data-program="criminal-justice"><span class="form-option__radio"></span>Criminal Justice</button>
+              <button type="button" class="form-option" data-program="liberal-arts"><span class="form-option__radio"></span>Liberal Arts / General Studies</button>
+              <button type="button" class="form-option" data-program="not-sure"><span class="form-option__radio"></span>Not Sure Yet</button>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="program-primary">&larr; Back</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: education-level -->
+          <div class="form-step" data-step="education-level">
+            <div class="form-step__label">What&rsquo;s your highest level of education?</div>
+            <div class="form-step__micro">We&rsquo;ll match programs that build on what you have.</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-education="high-school"><span class="form-option__radio"></span>High School / GED</button>
+              <button type="button" class="form-option" data-education="some-college"><span class="form-option__radio"></span>Some College</button>
+              <button type="button" class="form-option" data-education="associates"><span class="form-option__radio"></span>Associate&rsquo;s Degree</button>
+              <button type="button" class="form-option" data-education="bachelors"><span class="form-option__radio"></span>Bachelor&rsquo;s Degree</button>
+              <button type="button" class="form-option" data-education="masters"><span class="form-option__radio"></span>Master&rsquo;s Degree or Higher</button>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back-smart>&larr; Back</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: grad-military -->
+          <div class="form-step" data-step="grad-military">
+            <div class="form-step__label">A couple quick details.</div>
+            <div class="form-step__micro">Year you graduated (or expect to) and your military affiliation.</div>
+            <div class="form-fields" style="margin-bottom:14px">
+              <div class="form-field">
+                <label for="grad-year">Graduation Year</label>
+                <input type="number" id="grad-year" name="grad_year" placeholder="e.g. 2018" min="1940" max="2030" inputmode="numeric">
+              </div>
+            </div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-military="active-duty"><span class="form-option__radio"></span>Active Duty</button>
+              <button type="button" class="form-option" data-military="veteran"><span class="form-option__radio"></span>Veteran</button>
+              <button type="button" class="form-option" data-military="military-spouse"><span class="form-option__radio"></span>Military Spouse</button>
+              <button type="button" class="form-option" data-military="dependent"><span class="form-option__radio"></span>Dependent</button>
+              <button type="button" class="form-option" data-military="considering"><span class="form-option__radio"></span>Considering Joining</button>
+            </div>
+            <div data-error="grad-military" style="display:none;margin-top:12px;font-size:13px;color:#C0392B;">Please enter a valid graduation year and select your military affiliation.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="education-level">&larr; Back</button>
+              <button type="button" class="btn btn--primary btn--arrow" data-continue="contact" style="flex:1">Continue</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: contact -->
+          <div class="form-step" data-step="contact">
+            <div class="form-step__label">Where should schools reach you?</div>
+            <div class="form-step__micro">We&rsquo;ll send your matches and connect you with admissions advisors.</div>
+            <div class="form-fields">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="first-name">First Name</label>
+                  <input type="text" id="first-name" name="first_name" autocomplete="given-name" required>
+                </div>
+                <div class="form-field">
+                  <label for="last-name">Last Name</label>
+                  <input type="text" id="last-name" name="last_name" autocomplete="family-name" required>
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" autocomplete="tel" required>
+              </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
+              </div>
+              <div class="form-field">
+                <label for="zip">ZIP Code</label>
+                <input type="text" id="zip" name="zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" required>
+              </div>
+            </div>
+            <label class="form-consent" style="margin-top:14px">
+              <input type="checkbox" id="contact-tcpa">
+              <span>By checking this box, I consent to receive calls, texts, and emails from Military EDU Advisors and matched schools at the number and email provided, including via automated technology and pre-recorded messages. Consent is not a condition of any purchase. Message and data rates may apply. I have read the <a href="#" target="_blank" rel="noopener">Privacy Policy</a> and <a href="#" target="_blank" rel="noopener">Terms of Service</a>.</span>
+            </label>
+            <div data-error="contact" style="display:none;margin-top:12px;font-size:13px;color:#C0392B;">Please complete all fields and accept the consent above.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="grad-military">&larr; Back</button>
+              <button type="button" class="btn btn--primary btn--arrow" id="form-submit-contact" style="flex:1">Show My Matches</button>
+            </div>
+          </div>
+
+          <!-- STEP 5: matches -->
+          <div class="form-step" data-step="matches">
+            <div class="form-step__label">Your matched schools</div>
+            <div class="form-step__micro">Select the schools you&rsquo;d like to learn more from. They&rsquo;ll reach out with program details and next steps.</div>
+            <div id="form-school-list"></div>
+            <label class="form-consent" style="margin-top:14px">
+              <input type="checkbox" id="match-tcpa">
+              <span>I authorize the schools I have selected above to contact me by phone, text, and email about their programs, including via automated technology, at the number and email I provided. Consent is not required to enroll. I have read the <a href="#" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+            </label>
+            <div data-error="matches" style="display:none;margin-top:12px;font-size:13px;color:#C0392B;">Please select at least one school and accept the consent above.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="contact">&larr; Back</button>
+              <button type="button" class="btn btn--primary btn--arrow" id="form-submit-final" style="flex:1">Submit</button>
+            </div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="form-success" id="form-success">
+            <div class="form-success__icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3>You&rsquo;re all set!</h3>
+            <p>Your matched schools will be in touch shortly with program details and next steps.</p>
+          </div>
+
 <script>
 (function(){
   "use strict";
@@ -981,9 +1112,12 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
   // SMOOTH SCROLL
   // ============================================
   document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=this.getAttribute('href');if(id==='#')return;var t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
-
 })();
 </script>
+        </form>
+      </div>
+    </div>
+  </section>
 
 <!-- TRUST STRIP -->
 <div class="trust-strip">
@@ -1212,71 +1346,5 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
   Find Schools That Accept Your GI Bill
 </div>
 
-<script>
-(function(){
-  "use strict";
-
-  /* Mobile Menu */
-  var hamburger=document.getElementById("hamburger"),menu=document.getElementById("mobileMenu"),mobileCta=document.getElementById("mobileCta");
-  if(hamburger&&menu){hamburger.addEventListener("click",function(){var o=menu.classList.toggle("open");hamburger.classList.toggle("active");document.body.style.overflow=o?"hidden":""});if(mobileCta)mobileCta.addEventListener("click",function(){menu.classList.remove("open");hamburger.classList.remove("active");document.body.style.overflow=""})}
-
-  /* Sticky CTA */
-  var sticky=document.getElementById("stickyCta"),forms=document.querySelectorAll(".form-card");
-  if(sticky&&forms.length>0){var obs=new IntersectionObserver(function(e){var v=e.some(function(x){return x.isIntersecting});sticky.classList.toggle("hidden",v)},{threshold:0.1});forms.forEach(function(f){obs.observe(f)});sticky.addEventListener("click",function(){var t=document.getElementById("mea-lead-form");if(t)t.scrollIntoView({behavior:"smooth",block:"center"})})}
-
-  /* Scroll Reveal */
-  var revs=document.querySelectorAll(".reveal");
-  if(revs.length>0&&"IntersectionObserver" in window){var ro=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add("visible");ro.unobserve(x.target)}})},{threshold:0.15,rootMargin:"0px 0px -40px 0px"});revs.forEach(function(r){ro.observe(r)})}else{revs.forEach(function(r){r.classList.add("visible")})}
-
-  /* Smooth scroll */
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener("click",function(e){var id=this.getAttribute("href");if(id==="#")return;var t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth",block:"start"})}})});
-
-  /* LEAD FORM */
-  var currentStep=1,totalSteps=5,formData={};
-  var card=document.querySelector(".form-card"),progFill=document.getElementById("progFill"),stepCounter=document.getElementById("stepCounter");
-
-  card.querySelectorAll(".form-option").forEach(function(btn){
-    btn.addEventListener("click",function(){
-      var step=parseInt(this.getAttribute("data-step")),val=this.getAttribute("data-value");
-      var sibs=card.querySelectorAll('.form-option[data-step="'+step+'"]');
-      sibs.forEach(function(s){s.classList.remove("selected")});
-      this.classList.add("selected");
-      formData["step"+step]=val;
-      if(typeof gtag==="function")gtag("event","form_option_selected",{step:step,option:val});
-      setTimeout(function(){goStep(step+1);if(typeof gtag==="function")gtag("event","form_step_complete",{step:step,value:val})},250);
-    });
-  });
-
-  card.querySelectorAll("[data-back]").forEach(function(b){b.addEventListener("click",function(){goStep(currentStep-1)})});
-
-  var submitBtn=document.getElementById("mea-form-submit");
-  if(submitBtn){submitBtn.addEventListener("click",function(){
-    var inputs=card.querySelectorAll(".form-field input"),chk=document.getElementById("consent"),ok=true;
-    inputs.forEach(function(inp){if(inp.required&&!inp.value.trim()){inp.style.borderColor="#C0392B";ok=false}else{inp.style.borderColor="";formData[inp.placeholder]=inp.value.trim()}});
-    if(chk&&!chk.checked){ok=false;chk.parentElement.style.color="#C0392B"}
-    if(!ok)return;
-    submitBtn.disabled=true;submitBtn.textContent="Submitting...";
-    if(typeof gtag==="function")gtag("event","form_submitted",formData);
-    if(typeof fbq==="function")fbq("track","Lead");
-    setTimeout(showSuccess,800);
-  })};
-
-  function goStep(n){
-    if(n<1||n>totalSteps)return;
-    card.querySelectorAll(".form-step").forEach(function(s){s.classList.remove("active")});
-    var t=card.querySelector('[data-step="'+n+'"]');if(t)t.classList.add("active");
-    document.getElementById("formSuccess").classList.remove("active");
-    document.getElementById("formSuccess").style.display="none";
-    currentStep=n;progFill.style.width=(n/totalSteps*100)+"%";stepCounter.textContent="Step "+n+" of "+totalSteps;
-  }
-
-  function showSuccess(){
-    card.querySelectorAll(".form-step").forEach(function(s){s.classList.remove("active")});
-    card.querySelector(".form-progress").style.display="none";stepCounter.style.display="none";
-    var suc=document.getElementById("formSuccess");suc.style.display="block";suc.classList.add("active");
-  }
-
-})();
-</script>
 </body>
 </html>
