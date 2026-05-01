@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Military EDU Advisors — Find Schools That Accept Your GI Bill</title>
+<meta name="description" content="We match military service members, veterans, and spouses with accredited programs that honor your service and your benefits. Free. 60 seconds. No obligation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --dark: #111111;
+  --dark2: #1A1A1A;
+  --crimson: #9B1C1C;
+  --crimson-lt: #C0392B;
+  --crimson-br: #E74C3C;
+  --crimson-glow: rgba(155,28,28,0.25);
+  --silver: #A0A8B0;
+  --silver-lt: #C8D0D8;
+  --off-white: #F5F6F8;
+  --white: #FFFFFF;
+  --green: #15803D;
+  --green-bg: #F0FAF4;
+  --green-border: #BBF7D0;
+  --text: #1A1A1A;
+  --muted: #6B7280;
+  --border: #E2E6ED;
+  --shadow: 0 4px 24px rgba(0,0,0,0.10);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.18);
+  --shadow-crimson: 0 4px 20px rgba(155,28,28,0.3);
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', sans-serif;
+  --radius: 6px;
+  --radius-lg: 12px;
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--font-body); color:var(--text); background:var(--off-white); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+img { max-width:100%; height:auto; display:block; }
+a { color:var(--crimson); text-decoration:none; transition:color 0.2s; }
+a:hover { color:var(--crimson-lt); }
+h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12; }
+
+/* ── BUTTONS ── */
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-display); font-size:16px; font-weight:700; letter-spacing:0.03em; padding:14px 28px; border:none; border-radius:var(--radius); cursor:pointer; transition:all 0.2s; text-decoration:none; min-height:48px; line-height:1; }
+.btn--primary { background:var(--crimson); color:var(--white); box-shadow:var(--shadow-crimson); }
+.btn--primary:hover { background:var(--crimson-lt); color:var(--white); transform:translateY(-1px); box-shadow:0 6px 24px rgba(155,28,28,0.4); }
+.btn--lg { font-size:18px; padding:16px 36px; min-height:56px; }
+.btn--full { width:100%; }
+.btn--arrow::after { content:'\2192'; transition:transform 0.2s; }
+.btn--arrow:hover::after { transform:translateX(3px); }
+.btn--outline { background:transparent; color:var(--muted); border:2px solid var(--border); }
+.btn--outline:hover { border-color:var(--crimson); color:var(--crimson); }
+
+/* ── TOP BAR ── */
+.topbar { background:var(--crimson); padding:8px 20px; text-align:center; font-size:12px; font-weight:600; color:rgba(255,255,255,0.92); letter-spacing:0.03em; }
+.topbar span { opacity:0.5; margin:0 8px; }
+
+/* ── HEADER ── */
+.header { background:var(--white); border-bottom:3px solid var(--crimson); position:sticky; top:0; z-index:1000; height:68px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.header__inner { display:flex; align-items:center; justify-content:space-between; height:100%; max-width:1200px; margin:0 auto; padding:0 20px; }
+@media(min-width:768px){ .header__inner { padding:0 40px; } }
+.logo img { height:36px; width:auto; }
+@media(min-width:768px){ .logo img { height:44px; } }
+.nav { display:none; align-items:center; gap:28px; list-style:none; }
+@media(min-width:1024px){ .nav { display:flex; } }
+.nav a { font-family:var(--font-body); font-size:14px; font-weight:500; color:var(--muted); padding:8px 0; position:relative; transition:color 0.2s; }
+.nav a:hover { color:var(--text); }
+.nav__dropdown { position:relative; }
+.nav__dropdown-toggle::after { content:'\25BE'; font-size:10px; margin-left:4px; opacity:0.6; }
+.nav__dropdown-menu { position:absolute; top:calc(100% + 8px); left:-12px; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:8px 0; min-width:200px; opacity:0; visibility:hidden; transform:translateY(8px); transition:all 0.2s; box-shadow:var(--shadow-lg); z-index:100; }
+.nav__dropdown:hover .nav__dropdown-menu { opacity:1; visibility:visible; transform:translateY(0); }
+.nav__dropdown-menu a { display:block; padding:10px 20px; font-size:14px; color:var(--muted); }
+.nav__dropdown-menu a:hover { background:rgba(155,28,28,0.06); color:var(--crimson); }
+.header__cta { display:none; }
+@media(min-width:1024px){ .header__cta { display:inline-flex; } }
+
+/* Hamburger */
+.hamburger { display:flex; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; z-index:1100; }
+@media(min-width:1024px){ .hamburger { display:none; } }
+.hamburger span { display:block; width:24px; height:2px; background:var(--text); transition:all 0.3s; border-radius:2px; }
+.hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity:0; }
+.hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+/* Mobile menu */
+.mobile-menu { position:fixed; top:0; right:-100%; width:100%; height:100vh; background:var(--black); z-index:1050; transition:right 0.35s cubic-bezier(0.4,0,0.2,1); padding:120px 24px 40px; overflow-y:auto; }
+.mobile-menu.open { right:0; }
+.mobile-menu a { display:block; font-family:var(--font-display); font-size:24px; font-weight:700; color:var(--silver); padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+.mobile-menu a:hover { color:var(--white); }
+.mobile-menu__sub { padding-left:20px; }
+.mobile-menu__sub a { font-size:18px; font-weight:500; }
+.mobile-menu__cta { margin-top:32px; }
+
+/* ── STICKY MOBILE CTA ── */
+.sticky-cta { display:flex; align-items:center; justify-content:center; position:fixed; bottom:0; left:0; right:0; height:56px; background:var(--crimson); color:var(--white); font-family:var(--font-display); font-size:15px; font-weight:700; z-index:900; box-shadow:0 -4px 20px rgba(0,0,0,0.3); cursor:pointer; transition:opacity 0.3s,transform 0.3s; gap:8px; }
+.sticky-cta:hover { background:var(--crimson-lt); }
+.sticky-cta.hidden { opacity:0; transform:translateY(100%); pointer-events:none; }
+@media(min-width:1024px){ .sticky-cta { display:none; } }
+@media(max-width:1023px){ body { padding-bottom:56px; } }
+
+/* ── CONTAINER ── */
+.container { width:100%; max-width:1200px; margin:0 auto; padding:0 20px; }
+@media(min-width:768px){ .container { padding:0 40px; } }
+
+/* ── HERO ── */
+.hero { position:relative; overflow:hidden; padding:48px 0 56px; }
+.hero__bg { position:absolute; inset:0; z-index:0; }
+.hero__bg img { width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+.hero__bg::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.65) 40%, rgba(10,10,10,0.50) 100%); }
+@media(max-width:767px){ .hero__bg::after { background:linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.75) 100%); } }
+.hero__accent { position:absolute; top:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle, var(--crimson-glow) 0%, transparent 65%); pointer-events:none; z-index:1; }
+.hero__line { position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, var(--crimson), transparent); z-index:1; }
+.hero__inner { display:grid; gap:32px; position:relative; z-index:2; }
+@media(min-width:1024px){ .hero__inner { grid-template-columns:1fr 420px; align-items:center; gap:64px; } .hero { padding:72px 0 80px; } }
+.hero h1 { font-size:32px; color:var(--white); margin-bottom:14px; line-height:1.08; }
+@media(min-width:768px){ .hero h1 { font-size:48px; } }
+@media(min-width:1024px){ .hero h1 { font-size:54px; } }
+.hero h1 em { font-style:normal; color:var(--crimson-br); }
+.hero__sub { font-size:16px; color:var(--silver-lt); line-height:1.6; margin-bottom:20px; max-width:520px; }
+@media(min-width:768px){ .hero__sub { font-size:18px; } }
+.hero__badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.hero__badge { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:var(--silver-lt); background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); padding:6px 12px; border-radius:50px; }
+.hero__badge svg { width:14px; height:14px; stroke:var(--green); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* Desktop badges hide on mobile, mobile ones show below form */
+.hero__badges--desktop { display:none; }
+@media(min-width:1024px){ .hero__badges--desktop { display:flex; } .hero__badges--mobile { display:none; } }
+
+/* ── LEAD FORM ── */
+.form-card {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+  isolation: isolate;
+}
+
+.form-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  z-index: -1;
+}
+.form-progress { height:4px; background:var(--border); }
+.form-step-counter { text-align:center; padding:10px 20px 0; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:0.03em; }
+.form-progress__fill { height:100%; background:var(--crimson); border-radius:0 2px 2px 0; transition:width 0.4s cubic-bezier(0.4,0,0.2,1); }
+.form-step { padding:24px 20px 28px; display:none; }
+.form-step.active { display:block; animation:fadeUp 0.3s ease forwards; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.form-step__label { font-family:var(--font-display); font-size:20px; font-weight:700; margin-bottom:8px; line-height:1.2; }
+.form-step__micro { font-size:13px; color:var(--muted); margin-bottom:14px; }
+.form-options { display:flex; flex-direction:column; gap:10px; }
+.form-option { display:flex; align-items:center; gap:12px; padding:13px 16px; background:var(--off-white); border:2px solid var(--border); border-radius:var(--radius); cursor:pointer; font-family:var(--font-body); font-size:15px; font-weight:500; color:var(--text); transition:all 0.15s; min-height:48px; text-align:left; width:100%; }
+.form-option:hover { border-color:var(--crimson); background:var(--white); }
+.form-option.selected { border-color:var(--crimson); background:rgba(155,28,28,0.04); color:var(--crimson); font-weight:600; }
+.form-option__radio { width:20px; height:20px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; position:relative; transition:border-color 0.15s; }
+.form-option.selected .form-option__radio { border-color:var(--crimson); }
+.form-option.selected .form-option__radio::after { content:''; position:absolute; top:3px; left:3px; right:3px; bottom:3px; border-radius:50%; background:var(--crimson); }
+.form-fields { display:flex; flex-direction:column; gap:14px; }
+.form-field label { display:block; font-size:13px; font-weight:600; margin-bottom:4px; }
+.form-field input { width:100%; padding:12px 14px; border:2px solid var(--border); border-radius:var(--radius); font-family:var(--font-body); font-size:16px; color:var(--text); background:var(--white); transition:border-color 0.15s; min-height:48px; }
+.form-field input:focus { outline:none; border-color:var(--crimson); box-shadow:0 0 0 3px var(--crimson-glow); }
+.form-field input::placeholder { color:var(--silver); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-consent { display:flex; gap:10px; align-items:flex-start; font-size:12px; color:var(--muted); line-height:1.5; }
+.form-consent input[type="checkbox"] { width:18px; height:18px; margin-top:2px; flex-shrink:0; accent-color:var(--crimson); }
+.form-nav { display:flex; gap:12px; margin-top:20px; }
+.form-back { background:none; border:2px solid var(--border); color:var(--muted); font-family:var(--font-display); font-size:14px; font-weight:700; padding:12px 20px; border-radius:var(--radius); cursor:pointer; min-height:48px; transition:all 0.15s; }
+.form-back:hover { border-color:var(--muted); color:var(--text); }
+.form-success { text-align:center; padding:40px 20px; display:none; }
+.form-success.active { display:block; animation:fadeUp 0.4s ease forwards; }
+.form-success__icon { width:64px; height:64px; border-radius:50%; background:var(--green-bg); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+.form-success__icon svg { width:32px; height:32px; stroke:var(--green); fill:none; stroke-width:2.5; }
+.form-success h3 { font-size:22px; margin-bottom:8px; }
+.form-success p { font-size:15px; color:var(--muted); max-width:320px; margin:0 auto; }
+
+/* ── TRUST STRIP ── */
+.trust-strip { padding:18px 0; background:var(--white); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.trust-strip__inner { display:flex; gap:24px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.trust-strip__inner::-webkit-scrollbar { display:none; }
+@media(min-width:768px){ .trust-strip__inner { justify-content:center; overflow-x:visible; flex-wrap:wrap; } }
+.trust-item { display:flex; align-items:center; gap:10px; flex-shrink:0; white-space:nowrap; font-size:13px; font-weight:600; }
+.trust-item__icon { width:32px; height:32px; border-radius:50%; background:var(--green-bg); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.trust-item__icon svg { width:16px; height:16px; stroke:var(--green); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ── SECTIONS ── */
+.section { padding:56px 0; }
+@media(min-width:768px){ .section { padding:72px 0; } }
+.section--white { background:var(--white); }
+.section--light { background:var(--off-white); }
+.section--dark { background:var(--black); color:var(--white); }
+.eyebrow { font-family:var(--font-display); font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--crimson); margin-bottom:8px; }
+.section--dark .eyebrow { color:var(--crimson-br); }
+.section-title { font-size:28px; margin-bottom:10px; }
+@media(min-width:768px){ .section-title { font-size:40px; } }
+.section-sub { font-family:var(--font-body); font-size:16px; font-weight:400; color:var(--muted); max-width:600px; line-height:1.6; }
+.section--dark .section-sub { color:var(--silver); }
+
+/* ── HOW IT WORKS ── */
+.how-grid { display:grid; gap:32px; margin-top:36px; }
+@media(min-width:768px){ .how-grid { grid-template-columns:repeat(3,1fr); gap:24px; } }
+.how-step { text-align:center; }
+.how-step__num { width:48px; height:48px; border-radius:50%; background:var(--crimson); color:var(--white); font-family:var(--font-display); font-size:20px; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; }
+.how-step h3 { font-size:18px; margin-bottom:8px; }
+.how-step p { font-size:14px; color:var(--muted); max-width:280px; margin:0 auto; line-height:1.6; }
+
+/* ── PROGRAM CARDS ── */
+.programs-grid { display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:8px; margin-top:32px; }
+.programs-grid::-webkit-scrollbar { display:none; }
+@media(min-width:768px){ .programs-grid { display:grid; grid-template-columns:repeat(2,1fr); overflow-x:visible; } }
+@media(min-width:1024px){ .programs-grid { grid-template-columns:repeat(4,1fr); } }
+.prog-card { flex:0 0 280px; scroll-snap-align:start; background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px 24px; display:flex; flex-direction:column; transition:all 0.25s; }
+@media(min-width:768px){ .prog-card { flex:auto; } }
+.prog-card:hover { border-color:var(--crimson); box-shadow:var(--shadow); transform:translateY(-2px); }
+.prog-card__icon { width:48px; height:48px; border-radius:var(--radius); background:rgba(155,28,28,0.06); display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+.prog-card__icon svg { width:24px; height:24px; stroke:var(--crimson); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.prog-card h3 { font-size:20px; margin-bottom:8px; }
+.prog-card p { font-size:14px; color:var(--muted); line-height:1.6; flex-grow:1; margin-bottom:16px; }
+.prog-card__link { font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--crimson); display:inline-flex; align-items:center; gap:6px; transition:gap 0.2s; }
+.prog-card:hover .prog-card__link { gap:10px; }
+
+/* ── PHOTO FEATURE ── */
+.photo-feature { position:relative; overflow:hidden; }
+.photo-feature__img { width:100%; height:320px; object-fit:cover; object-position:center 60%; }
+@media(min-width:768px){ .photo-feature__img { height:400px; } }
+.photo-feature__overlay { position:absolute; inset:0; background:linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.4) 100%); display:flex; align-items:center; }
+.photo-feature__content { padding:0 20px; max-width:1200px; margin:0 auto; width:100%; }
+@media(min-width:768px){ .photo-feature__content { padding:0 40px; max-width:600px; margin:0 0 0 40px; } }
+.photo-feature__content h2 { font-size:28px; color:var(--white); margin-bottom:10px; line-height:1.1; }
+@media(min-width:768px){ .photo-feature__content h2 { font-size:36px; } }
+.photo-feature__content p { font-size:15px; color:var(--silver-lt); line-height:1.6; margin-bottom:20px; }
+
+/* ── BRANCHES ── */
+.branches { text-align:center; padding:28px 0; background:var(--white); }
+.branches__label { font-size:13px; color:var(--muted); margin-bottom:16px; }
+.branches__list { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; padding:0 20px; }
+.branches__list span { font-family:var(--font-display); font-size:12px; font-weight:700; color:var(--silver); letter-spacing:0.08em; }
+
+/* ── BLOG CARDS ── */
+.blog-grid { display:grid; gap:20px; margin-top:32px; }
+@media(min-width:768px){ .blog-grid { grid-template-columns:repeat(2,1fr); } }
+@media(min-width:1024px){ .blog-grid { grid-template-columns:repeat(3,1fr); } }
+.blog-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; transition:all 0.25s; }
+.blog-card:hover { box-shadow:var(--shadow); transform:translateY(-2px); }
+.blog-card__thumb { width:100%; height:180px; object-fit:cover; background:linear-gradient(135deg,#1a2a4a 0%,#2d4a7a 100%); }
+.blog-card__body { padding:20px; }
+.blog-card__meta { font-size:12px; color:var(--muted); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.blog-card__cat { font-weight:600; color:var(--crimson); text-transform:uppercase; letter-spacing:0.05em; }
+.blog-card h3 { font-size:18px; margin-bottom:8px; line-height:1.3; }
+.blog-card h3 a { color:var(--text); }
+.blog-card h3 a:hover { color:var(--crimson); }
+.blog-card__excerpt { font-size:14px; color:var(--muted); line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+/* ── FINAL CTA ── */
+.final-cta { background:var(--black); padding:56px 0; text-align:center; position:relative; overflow:hidden; }
+.final-cta::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:600px; background:radial-gradient(circle,var(--crimson-glow) 0%,transparent 65%); pointer-events:none; }
+.final-cta h2 { font-size:32px; color:var(--white); margin-bottom:12px; position:relative; z-index:1; }
+@media(min-width:768px){ .final-cta h2 { font-size:40px; } }
+.final-cta p { font-size:16px; color:var(--silver); margin-bottom:24px; position:relative; z-index:1; }
+.final-cta .btn { position:relative; z-index:1; }
+
+/* ── FOOTER ── */
+.footer { background:var(--black); border-top:1px solid rgba(255,255,255,0.06); padding:48px 0 20px; }
+.footer__grid { display:grid; gap:32px; margin-bottom:32px; }
+@media(min-width:768px){ .footer__grid { grid-template-columns:2fr 1fr 1fr; } }
+.footer__brand p { font-size:14px; color:var(--silver); line-height:1.6; max-width:320px; margin-top:14px; }
+.footer__heading { font-family:var(--font-display); font-size:13px; font-weight:700; color:var(--white); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:14px; }
+.footer__links { list-style:none; }
+.footer__links li { margin-bottom:10px; }
+.footer__links a { font-size:14px; color:var(--silver); }
+.footer__links a:hover { color:var(--white); }
+.footer__bottom { border-top:1px solid rgba(255,255,255,0.06); padding-top:20px; text-align:center; }
+.footer__disclaimer { font-size:11px; color:rgba(255,255,255,0.35); line-height:1.6; max-width:700px; margin:0 auto 10px; }
+.footer__copy { font-size:12px; color:rgba(255,255,255,0.3); }
+
+ /* ── FEATURED SCHOOLS ── */
+.featured-schools { background: #ffffff; padding: 56px 0; }
+@media(min-width:768px) { .featured-schools { padding: 72px 0; } }
+
+.featured-schools__head { text-align: center; max-width: 720px; margin: 0 auto 36px; }
+.featured-schools__head .section-sub { margin: 10px auto 0; }
+
+.featured-grid { display: grid; gap: 24px; }
+@media(min-width:900px) { .featured-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+
+.featured-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--crimson);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+.featured-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: var(--crimson); border-top-color: var(--crimson); }
+
+.featured-card__logo { height: 64px; width: auto; max-width: 240px; object-fit: contain; object-position: left center; margin-bottom: 16px; }
+.featured-card h3 { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.1; }
+.featured-card__meta { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+.featured-card__desc { font-size: 14.5px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+
+.featured-card__list { list-style: none; padding: 0; margin: 0 0 22px 0; display: flex; flex-direction: column; gap: 10px; }
+.featured-card__list li { position: relative; padding-left: 26px; font-size: 14px; color: var(--text); line-height: 1.5; }
+.featured-card__list li::before {
+  content: ''; position: absolute; left: 0; top: 4px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--green-bg);
+  box-shadow: inset 0 0 0 1px var(--green-border, #BBF7D0);
+}
+.featured-card__list li::after {
+  content: ''; position: absolute; left: 5px; top: 8px;
+  width: 6px; height: 3px;
+  border-left: 2px solid var(--green);
+  border-bottom: 2px solid var(--green);
+  transform: rotate(-45deg);
+}
+
+.featured-card__cta { margin-top: auto; }
+.featured-card__cta .btn { width: 100%; }
+
+/* ── REVEAL ── */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal--d1 { transition-delay:0.1s; }
+.reveal--d2 { transition-delay:0.2s; }
+.reveal--d3 { transition-delay:0.3s; }
+</style>
+</head>
+<body>
+<!-- TOP BAR -->
+<div class="topbar">
+  Trusted by 5,000+ Military Families <span>&middot;</span> Not affiliated with U.S. Government
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <!--TrustedForm -->
+<script type="text/javascript">
+(function(){
+  var tf=document.createElement('script');tf.type='text/javascript';tf.async=true;
+  tf.src=("https:"==document.location.protocol?'https':'http')+"://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&ping_field=xxTrustedFormPingUrl&l="+new Date().getTime()+Math.random();
+  var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(tf,s);
+})();
+</script>
+<noscript><img src="https://api.trustedform.com/ns.gif" alt=""></noscript>
+  <div class="header__inner">
+    <a href="#" class="logo"><img src="data:image/png;base64,__PLACEHOLDER_LOGO_HEADER__" alt="Military EDU Advisors"></a>
+    <nav>
+      <ul class="nav">
+        <li><a href="#">Home</a></li>
+        <li class="nav__dropdown">
+          <a href="#" class="nav__dropdown-toggle">Programs</a>
+          <div class="nav__dropdown-menu">
+            <a href="#">Trades &amp; Skilled Labor</a>
+            <a href="#">Healthcare</a>
+            <a href="#">Business</a>
+            <a href="#">Information Technology</a>
+          </div>
+        </li>
+        <li class="nav__dropdown">
+          <a href="#" class="nav__dropdown-toggle">Resources</a>
+          <div class="nav__dropdown-menu">
+            <a href="#">Career Resources</a>
+            <a href="#">Funding Resources</a>
+            <a href="#">Video Resources</a>
+            <a href="#">Career Coaching</a>
+          </div>
+        </li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </nav>
+    <a href="#mea-lead-form" class="btn btn--primary header__cta">School Search</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">Home</a>
+  <a href="#">Programs</a>
+  <div class="mobile-menu__sub">
+    <a href="#">Trades &amp; Skilled Labor</a>
+    <a href="#">Healthcare</a>
+    <a href="#">Business</a>
+    <a href="#">Information Technology</a>
+  </div>
+  <a href="#">Career Resources</a>
+  <a href="#">Funding Resources</a>
+  <a href="#">Blog</a>
+  <div class="mobile-menu__cta">
+    <a href="#mea-lead-form" class="btn btn--primary btn--full btn--lg" id="mobileCta">Find Your School &rarr;</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__bg">
+    <img src="data:image/jpeg;base64,__PLACEHOLDER_HERO_BG__" alt="" loading="eager">
+  </div>
+  <div class="hero__accent"></div>
+  <div class="hero__line"></div>
+  <div class="container hero__inner">
+    <div>
+      <h1>Find Schools That Accept Your <em>GI Bill</em> &mdash; 60 Seconds</h1>
+      <p class="hero__sub">We match military service members, veterans, and spouses with accredited programs that honor your service and your benefits. Free. No obligation.</p>
+    </div>
+    <div id="mea-lead-form">
+    <form class="quiz form-card" id="lead-form" aria-label="School matching form" data-leadhoop-endpoint="" novalidate>
+       <input type="hidden" name="xxTrustedFormCertUrl" id="xxTrustedFormCertUrl" value="">
+<input type="hidden" name="xxTrustedFormPingUrl" id="xxTrustedFormPingUrl" value="">
+<input type="hidden" name="utm_source" id="utm_source" value="">
+<input type="hidden" name="utm_medium" id="utm_medium" value="">
+<input type="hidden" name="utm_campaign" id="utm_campaign" value="">
+<input type="hidden" name="utm_term" id="utm_term" value="">
+<input type="hidden" name="utm_content" id="utm_content" value="">
+          <div class="form-card__header">
+            <div class="form-card__title">Find Your School Match</div>
+            <div class="form-card__sub">Free. 60 seconds. No obligation.</div>
+          </div>
+          <div class="form-step-counter" id="form-step-counter">Step 1 of 4</div>
+          <div class="form-progress" aria-hidden="true">
+            <div class="form-progress__fill" id="form-progress-fill" style="width:25%"></div>
+          </div>
+
+          <!-- STEP 1: program-primary -->
+          <div class="form-step active" data-step="program-primary">
+            <div class="form-step__label">What program are you interested in?</div>
+            <div class="form-step__micro">Pick the field that best fits your goals.</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-program="trades"><span class="form-option__radio"></span>Trades &amp; Skilled Labor</button>
+              <button type="button" class="form-option" data-program="healthcare"><span class="form-option__radio"></span>Healthcare</button>
+              <button type="button" class="form-option" data-program="business"><span class="form-option__radio"></span>Business</button>
+              <button type="button" class="form-option" data-program="it"><span class="form-option__radio"></span>Information Technology</button>
+              <button type="button" class="form-option" data-program="other" data-other="1"><span class="form-option__radio"></span>Other / Not Sure</button>
+            </div>
+          </div>
+
+          <!-- STEP 1b: program-other -->
+          <div class="form-step" data-step="program-other">
+            <div class="form-step__label">Tell us a bit more.</div>
+            <div class="form-step__micro">Which area sounds closest?</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-program="education"><span class="form-option__radio"></span>Education / Teaching</button>
+              <button type="button" class="form-option" data-program="psychology"><span class="form-option__radio"></span>Psychology / Counseling</button>
+              <button type="button" class="form-option" data-program="criminal-justice"><span class="form-option__radio"></span>Criminal Justice</button>
+              <button type="button" class="form-option" data-program="liberal-arts"><span class="form-option__radio"></span>Liberal Arts / General Studies</button>
+              <button type="button" class="form-option" data-program="not-sure"><span class="form-option__radio"></span>Not Sure Yet</button>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="program-primary">&larr; Back</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: education-level -->
+          <div class="form-step" data-step="education-level">
+            <div class="form-step__label">What&rsquo;s your highest level of education?</div>
+            <div class="form-step__micro">We&rsquo;ll match programs that build on what you have.</div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-education="high-school"><span class="form-option__radio"></span>High School / GED</button>
+              <button type="button" class="form-option" data-education="some-college"><span class="form-option__radio"></span>Some College</button>
+              <button type="button" class="form-option" data-education="associates"><span class="form-option__radio"></span>Associate&rsquo;s Degree</button>
+              <button type="button" class="form-option" data-education="bachelors"><span class="form-option__radio"></span>Bachelor&rsquo;s Degree</button>
+              <button type="button" class="form-option" data-education="masters"><span class="form-option__radio"></span>Master&rsquo;s Degree or Higher</button>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back-smart>&larr; Back</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: grad-military -->
+          <div class="form-step" data-step="grad-military">
+            <div class="form-step__label">A couple quick details.</div>
+            <div class="form-step__micro">Year you graduated (or expect to) and your military affiliation.</div>
+            <div class="form-fields" style="margin-bottom:14px">
+              <div class="form-field">
+                <label for="grad-year">Graduation Year</label>
+                <input type="number" id="grad-year" name="grad_year" placeholder="e.g. 2018" min="1940" max="2030" inputmode="numeric">
+              </div>
+            </div>
+            <div class="form-options">
+              <button type="button" class="form-option" data-military="active-duty"><span class="form-option__radio"></span>Active Duty</button>
+              <button type="button" class="form-option" data-military="veteran"><span class="form-option__radio"></span>Veteran</button>
+              <button type="button" class="form-option" data-military="military-spouse"><span class="form-option__radio"></span>Military Spouse</button>
+              <button type="button" class="form-option" data-military="dependent"><span class="form-option__radio"></span>Dependent</button>
+              <button type="button" class="form-option" data-military="considering"><span class="form-option__radio"></span>Considering Joining</button>
+            </div>
+            <div data-error="grad-military" style="display:none;margin-top:12px;font-size:13px;color:#C0392B;">Please enter a valid graduation year and select your military affiliation.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="education-level">&larr; Back</button>
+              <button type="button" class="btn btn--primary btn--arrow" data-continue="contact" style="flex:1">Continue</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: contact -->
+          <div class="form-step" data-step="contact">
+            <div class="form-step__label">Where should schools reach you?</div>
+            <div class="form-step__micro">We&rsquo;ll send your matches and connect you with admissions advisors.</div>
+            <div class="form-fields">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="first-name">First Name</label>
+                  <input type="text" id="first-name" name="first_name" autocomplete="given-name" required>
+                </div>
+                <div class="form-field">
+                  <label for="last-name">Last Name</label>
+                  <input type="text" id="last-name" name="last_name" autocomplete="family-name" required>
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" autocomplete="tel" required>
+              </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
+              </div>
+              <div class="form-field">
+                <label for="zip">ZIP Code</label>
+                <input type="text" id="zip" name="zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" required>
+              </div>
+            </div>
+            <label class="form-consent" style="margin-top:14px">
+              <input type="checkbox" id="contact-tcpa">
+              <span>By checking this box, I consent to receive calls, texts, and emails from Military EDU Advisors and matched schools at the number and email provided, including via automated technology and pre-recorded messages. Consent is not a condition of any purchase. Message and data rates may apply. I have read the <a href="#" target="_blank" rel="noopener">Privacy Policy</a> and <a href="#" target="_blank" rel="noopener">Terms of Service</a>.</span>
+            </label>
+            <div data-error="contact" style="display:none;margin-top:12px;font-size:13px;color:#C0392B;">Please complete all fields and accept the consent above.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="grad-military">&larr; Back</button>
+              <button type="button" class="btn btn--primary btn--arrow" id="form-submit-contact" style="flex:1">Show My Matches</button>
+            </div>
+          </div>
+
+          <!-- STEP 5: matches -->
+          <div class="form-step" data-step="matches">
+            <div class="form-step__label">Your matched schools</div>
+            <div class="form-step__micro">Select the schools you&rsquo;d like to learn more from. They&rsquo;ll reach out with program details and next steps.</div>
+            <div id="form-school-list"></div>
+            <label class="form-consent" style="margin-top:14px">
+              <input type="checkbox" id="match-tcpa">
+              <span>I authorize the schools I have selected above to contact me by phone, text, and email about their programs, including via automated technology, at the number and email I provided. Consent is not required to enroll. I have read the <a href="#" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+            </label>
+            <div data-error="matches" style="display:none;margin-top:12px;font-size:13px;color:#C0392B;">Please select at least one school and accept the consent above.</div>
+            <div class="form-nav">
+              <button type="button" class="form-back" data-back="contact">&larr; Back</button>
+              <button type="button" class="btn btn--primary btn--arrow" id="form-submit-final" style="flex:1">Submit</button>
+            </div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="form-success" id="form-success">
+            <div class="form-success__icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3>You&rsquo;re all set!</h3>
+            <p>Your matched schools will be in touch shortly with program details and next steps.</p>
+          </div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============================================
+  // CONFIG — Sam: swap these for production
+  // ============================================
+  var CONFIG = {
+    LEADHOOP_CONTACT_ENDPOINT: 'https://api.leadhoop.com/your-contact-endpoint',
+    LEADHOOP_FINAL_ENDPOINT:   'https://api.leadhoop.com/your-final-endpoint',
+    USE_MOCK_SCHOOLS: true,
+    DEBUG: false
+  };
+
+  var MOCK_SCHOOLS = [
+    { id:'sch_001', name:'Houston Christian University', meta:'Houston, TX · On-Campus & Online', desc:'Yellow Ribbon · Veterans Lounge · Faith-based', tag:'Top Match' },
+    { id:'sch_002', name:'Waldorf University', meta:'Forest City, IA · 100% Online', desc:'TA cap-friendly · Books included · 5-star AF rating', tag:'Best for TA Cap' },
+    { id:'sch_003', name:'Purdue Global', meta:'Online · Indiana-based', desc:'AD tuition reduction · 24/7 support · Yellow Ribbon', tag:'Online Pick' }
+  ];
+
+  function debug(){if(CONFIG.DEBUG&&window.console)console.log.apply(console,arguments);}
+
+  // ============================================
+  // FORM STATE
+  // ============================================
+  var STEPS = ['program-primary','program-other','education-level','grad-military','contact','matches'];
+  var VISIBLE_STEPS = 4; // what the counter shows (matches/success don't count)
+  var formData = {};
+  var wentToOther = false; // tracks if user went through program-other
+  var leadId = null;
+
+  // ============================================
+  // GRAB DOM
+  // ============================================
+  var form = document.getElementById('lead-form');
+  if(!form) return;
+
+  var progFill = document.getElementById('form-progress-fill');
+  var stepCounter = document.getElementById('form-step-counter');
+  var progressBar = form.querySelector('.form-progress');
+
+  // ============================================
+  // UTM CAPTURE
+  // ============================================
+  (function(){
+    try {
+      var params = new URLSearchParams(window.location.search);
+      ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(key){
+        var val = params.get(key);
+        if(val){
+          var el = document.getElementById(key);
+          if(el) el.value = val;
+          formData[key] = val;
+        }
+      });
+    } catch(e){}
+  })();
+
+  // ============================================
+  // STEP NAVIGATION
+  // ============================================
+  function getVisibleStepNumber(stepName){
+    var map = {'program-primary':1,'program-other':1,'education-level':2,'grad-military':3,'contact':4,'matches':4};
+    return map[stepName] || 1;
+  }
+
+  function goToStep(stepName){
+    form.querySelectorAll('.form-step').forEach(function(s){ s.classList.remove('active'); });
+    var success = document.getElementById('form-success');
+    if(success){ success.classList.remove('active'); success.style.display='none'; }
+
+    var target = form.querySelector('[data-step="'+stepName+'"]');
+    if(!target) return;
+    target.classList.add('active');
+
+    var visNum = getVisibleStepNumber(stepName);
+    if(stepName !== 'matches'){
+      if(progFill) progFill.style.width = ((visNum/VISIBLE_STEPS)*100)+'%';
+      if(stepCounter){ stepCounter.textContent='Step '+visNum+' of '+VISIBLE_STEPS; stepCounter.style.display=''; }
+      if(progressBar) progressBar.style.display='';
+    } else {
+      if(progFill) progFill.style.width='100%';
+      if(stepCounter) stepCounter.style.display='none';
+    }
+
+    debug('goToStep:', stepName, 'visNum:', visNum);
+    if(typeof gtag==='function') gtag('event','form_step_view',{step_name:stepName,step_number:visNum});
+  }
+
+  // ============================================
+  // OPTION BUTTONS — program-primary
+  // ============================================
+  var primaryOptions = form.querySelectorAll('[data-step="program-primary"] .form-option');
+  primaryOptions.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      primaryOptions.forEach(function(s){ s.classList.remove('selected'); });
+      this.classList.add('selected');
+
+      var val = this.getAttribute('data-program');
+      formData.program_interest = val;
+      debug('program_interest:', val);
+
+      if(typeof gtag==='function') gtag('event','form_option_selected',{field:'program_interest',value:val});
+
+      var isOther = this.hasAttribute('data-other');
+      wentToOther = isOther;
+
+      setTimeout(function(){
+        goToStep(isOther ? 'program-other' : 'education-level');
+      }, 220);
+    });
+  });
+
+  // ============================================
+  // OPTION BUTTONS — program-other
+  // ============================================
+  var otherOptions = form.querySelectorAll('[data-step="program-other"] .form-option');
+  otherOptions.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      otherOptions.forEach(function(s){ s.classList.remove('selected'); });
+      this.classList.add('selected');
+
+      var val = this.getAttribute('data-program');
+      formData.program_interest = val;
+      debug('program_interest (other):', val);
+
+      if(typeof gtag==='function') gtag('event','form_option_selected',{field:'program_interest_other',value:val});
+
+      setTimeout(function(){ goToStep('education-level'); }, 220);
+    });
+  });
+
+  // ============================================
+  // OPTION BUTTONS — education-level
+  // ============================================
+  var eduOptions = form.querySelectorAll('[data-step="education-level"] .form-option');
+  eduOptions.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      eduOptions.forEach(function(s){ s.classList.remove('selected'); });
+      this.classList.add('selected');
+
+      var val = this.getAttribute('data-education');
+      formData.education_level = val;
+      debug('education_level:', val);
+
+      if(typeof gtag==='function') gtag('event','form_option_selected',{field:'education_level',value:val});
+
+      setTimeout(function(){ goToStep('grad-military'); }, 220);
+    });
+  });
+
+  // ============================================
+  // STEP 3: grad-military — hybrid
+  // ============================================
+  var milOptions = form.querySelectorAll('[data-step="grad-military"] .form-option');
+  milOptions.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      milOptions.forEach(function(s){ s.classList.remove('selected'); });
+      this.classList.add('selected');
+      formData.military_affiliation = this.getAttribute('data-military');
+      debug('military_affiliation:', formData.military_affiliation);
+    });
+  });
+
+  var gradContinueBtn = form.querySelector('[data-continue="contact"]');
+  if(gradContinueBtn){
+    gradContinueBtn.addEventListener('click', function(){
+      var gradInput = document.getElementById('grad-year');
+      var gradVal = gradInput ? gradInput.value.trim() : '';
+      var gradYear = parseInt(gradVal, 10);
+      var gradValid = gradYear >= 1940 && gradYear <= 2030;
+      var milSelected = !!formData.military_affiliation;
+
+      var errEl = form.querySelector('[data-error="grad-military"]');
+
+      if(!gradValid || !milSelected){
+        if(errEl) errEl.style.display='block';
+        if(gradInput && !gradValid) gradInput.style.borderColor='#C0392B';
+        if(typeof gtag==='function') gtag('event','form_validation_error',{step:'grad-military'});
+        return;
+      }
+
+      if(errEl) errEl.style.display='none';
+      if(gradInput) gradInput.style.borderColor='';
+      formData.grad_year = gradVal;
+      debug('grad_year:', gradVal);
+
+      if(typeof gtag==='function') gtag('event','form_step_complete',{step:'grad-military'});
+      goToStep('contact');
+    });
+  }
+
+  // ============================================
+  // BACK BUTTONS
+  // ============================================
+  form.querySelectorAll('[data-back]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = this.getAttribute('data-back');
+      if(target) goToStep(target);
+    });
+  });
+
+  form.querySelectorAll('[data-back-smart]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      goToStep(wentToOther ? 'program-other' : 'program-primary');
+    });
+  });
+
+  // ============================================
+  // CONTACT VALIDATION
+  // ============================================
+  function validateContactStep(){
+    var step = form.querySelector('[data-step="contact"]');
+    if(!step) return false;
+    var allValid = true;
+
+    var fields = [
+      { el: document.getElementById('first-name'), test: function(v){return v.length>=2;} },
+      { el: document.getElementById('last-name'), test: function(v){return v.length>=2;} },
+      { el: document.getElementById('phone'), test: function(v){return v.replace(/\D/g,'').length===10;} },
+      { el: document.getElementById('email'), test: function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);} },
+      { el: document.getElementById('zip'), test: function(v){return /^[0-9]{5}$/.test(v);} }
+    ];
+
+    fields.forEach(function(f){
+      if(!f.el) return;
+      var val = f.el.value.trim();
+      var ok = val && f.test(val);
+      f.el.style.borderColor = ok ? '' : '#C0392B';
+      if(!ok) allValid = false;
+    });
+
+    var consent = document.getElementById('contact-tcpa');
+    if(consent && !consent.checked){
+      var label = consent.closest('.form-consent');
+      if(label) label.style.color='#C0392B';
+      allValid = false;
+    } else if(consent){
+      var lbl = consent.closest('.form-consent');
+      if(lbl) lbl.style.color='';
+    }
+
+    return allValid;
+  }
+
+  // Phone auto-format
+  var phoneInput = document.getElementById('phone');
+  if(phoneInput){
+    phoneInput.addEventListener('input', function(){
+      var d = this.value.replace(/\D/g,'').substring(0,10);
+      if(d.length>=7) this.value='('+d.substring(0,3)+') '+d.substring(3,6)+'-'+d.substring(6);
+      else if(d.length>=4) this.value='('+d.substring(0,3)+') '+d.substring(3);
+      else if(d.length>=1) this.value='('+d;
+      else this.value='';
+    });
+  }
+
+  var zipInput = document.getElementById('zip');
+  if(zipInput){
+    zipInput.addEventListener('input', function(){
+      this.value = this.value.replace(/\D/g,'').substring(0,5);
+    });
+  }
+
+  form.querySelectorAll('[data-step="contact"] input:not([type=checkbox])').forEach(function(inp){
+    inp.addEventListener('input', function(){
+      if(this.style.borderColor) this.style.borderColor='';
+    });
+  });
+  var contactTcpa = document.getElementById('contact-tcpa');
+  if(contactTcpa){
+    contactTcpa.addEventListener('change', function(){
+      var lbl = this.closest('.form-consent');
+      if(lbl && this.checked) lbl.style.color='';
+    });
+  }
+
+  // ============================================
+  // CONTACT SUBMIT — POST 1
+  // ============================================
+  var contactBtn = document.getElementById('form-submit-contact');
+  if(contactBtn){
+    contactBtn.addEventListener('click', function(){
+      var errEl = form.querySelector('[data-error="contact"]');
+
+      if(!validateContactStep()){
+        if(errEl) errEl.style.display='block';
+        if(typeof gtag==='function') gtag('event','form_validation_error',{step:'contact'});
+        return;
+      }
+      if(errEl) errEl.style.display='none';
+
+      formData.first_name = document.getElementById('first-name').value.trim();
+      formData.last_name = document.getElementById('last-name').value.trim();
+      formData.phone = document.getElementById('phone').value.trim();
+      formData.email = document.getElementById('email').value.trim();
+      formData.zip = document.getElementById('zip').value.trim();
+      formData.contact_tcpa = true;
+      formData.consent_timestamp = new Date().toISOString();
+      var consentSpan = form.querySelector('[data-step="contact"] .form-consent span');
+      if(consentSpan) formData.consent_text = consentSpan.innerText;
+
+      var tfCert = document.getElementById('xxTrustedFormCertUrl');
+      var tfPing = document.getElementById('xxTrustedFormPingUrl');
+      formData.xxTrustedFormCertUrl = tfCert ? tfCert.value : '';
+      formData.xxTrustedFormPingUrl = tfPing ? tfPing.value : '';
+
+      contactBtn.disabled = true;
+      var origText = contactBtn.textContent;
+      contactBtn.textContent = 'Matching schools...';
+
+      debug('POST 1 payload:', formData);
+
+      submitToLeadHoop(CONFIG.LEADHOOP_CONTACT_ENDPOINT, formData)
+        .then(function(res){
+          leadId = (res && res.lead_id) || null;
+          formData.lead_id = leadId;
+          if(typeof gtag==='function') gtag('event','generate_lead',{event_category:'form',event_label:'contact_submitted',lead_id:leadId});
+          if(typeof fbq==='function') fbq('track','Lead',{content_name:'mep_contact'});
+          renderMatchedSchools();
+          goToStep('matches');
+          contactBtn.disabled=false; contactBtn.textContent=origText;
+        })
+        .catch(function(err){
+          debug('POST 1 error:', err);
+          if(typeof gtag==='function') gtag('event','form_submit_error',{step:'contact',error:String(err)});
+          renderMatchedSchools();
+          goToStep('matches');
+          contactBtn.disabled=false; contactBtn.textContent=origText;
+        });
+    });
+  }
+
+  // ============================================
+  // FINAL SUBMIT — POST 2
+  // ============================================
+  var finalBtn = document.getElementById('form-submit-final');
+  if(finalBtn){
+    finalBtn.addEventListener('click', function(){
+      var errEl = form.querySelector('[data-error="matches"]');
+      var matchConsent = document.getElementById('match-tcpa');
+      var selected = [];
+
+      form.querySelectorAll('#form-school-list input[type=checkbox]:checked').forEach(function(cb){
+        selected.push(cb.value);
+      });
+
+      var hasSchools = selected.length > 0;
+      var hasConsent = matchConsent && matchConsent.checked;
+
+      if(!hasSchools || !hasConsent){
+        if(errEl) errEl.style.display='block';
+        if(matchConsent && !hasConsent){
+          var lbl = matchConsent.closest('.form-consent');
+          if(lbl) lbl.style.color='#C0392B';
+        }
+        if(typeof gtag==='function') gtag('event','form_validation_error',{step:'matches',missing_schools:!hasSchools,missing_consent:!hasConsent});
+        return;
+      }
+      if(errEl) errEl.style.display='none';
+
+      formData.selected_schools = selected;
+      formData.match_tcpa = true;
+      formData.match_consent_timestamp = new Date().toISOString();
+      var matchSpan = form.querySelector('[data-step="matches"] .form-consent span');
+      if(matchSpan) formData.match_consent_text = matchSpan.innerText;
+
+      var tfCert = document.getElementById('xxTrustedFormCertUrl');
+      if(tfCert) formData.xxTrustedFormCertUrl = tfCert.value;
+
+      finalBtn.disabled=true;
+      finalBtn.textContent='Submitting...';
+
+      debug('POST 2 payload:', formData);
+
+      submitToLeadHoop(CONFIG.LEADHOOP_FINAL_ENDPOINT, formData)
+        .then(function(){
+          if(typeof gtag==='function'){
+            gtag('event','generate_lead',{event_category:'form',event_label:'matches_submitted',schools_count:selected.length,schools:selected.join(',')});
+          }
+          if(typeof fbq==='function') fbq('track','CompleteRegistration',{content_name:'mep_schools_submitted',num_items:selected.length});
+          showSuccess();
+        })
+        .catch(function(err){
+          debug('POST 2 error:', err);
+          if(typeof gtag==='function') gtag('event','form_submit_error',{step:'matches',error:String(err)});
+          showSuccess();
+        });
+    });
+  }
+
+  var matchTcpa = document.getElementById('match-tcpa');
+  if(matchTcpa){
+    matchTcpa.addEventListener('change', function(){
+      if(this.checked){
+        var lbl = this.closest('.form-consent');
+        if(lbl) lbl.style.color='';
+      }
+    });
+  }
+
+  // ============================================
+  // RENDER MATCHED SCHOOLS
+  // ============================================
+  function renderMatchedSchools(){
+    var listEl = document.getElementById('form-school-list');
+    if(!listEl) return;
+    listEl.innerHTML = '';
+
+    var schools = CONFIG.USE_MOCK_SCHOOLS ? MOCK_SCHOOLS : (formData.matched_schools || MOCK_SCHOOLS);
+
+    schools.forEach(function(school){
+      var item = document.createElement('label');
+      item.style.cssText='display:flex;gap:12px;padding:14px;border:2px solid var(--border, #E5E5E5);border-radius:6px;cursor:pointer;align-items:flex-start;margin-bottom:10px;transition:all 0.15s;';
+      item.innerHTML =
+        '<input type="checkbox" name="schools[]" value="'+school.id+'" style="margin-top:4px;width:18px;height:18px;flex-shrink:0;accent-color:var(--crimson, #8B0000);">'+
+        '<div style="flex:1;">'+
+          '<div style="font-family:var(--font-display);font-weight:700;font-size:16px;margin-bottom:4px;">'+school.name+'</div>'+
+          '<div style="font-size:11px;color:var(--crimson,#8B0000);text-transform:uppercase;letter-spacing:0.05em;font-weight:700;margin-bottom:4px;">'+school.tag+'</div>'+
+          '<div style="font-size:13px;color:var(--muted,#777);">'+school.desc+'</div>'+
+          '<div style="font-size:12px;color:var(--muted,#999);margin-top:2px;">'+school.meta+'</div>'+
+        '</div>';
+
+      var cb = item.querySelector('input[type=checkbox]');
+      cb.addEventListener('change', function(){
+        item.style.borderColor = cb.checked ? 'var(--crimson,#8B0000)' : 'var(--border,#E5E5E5)';
+        item.style.background = cb.checked ? 'rgba(155,28,28,0.04)' : '';
+      });
+
+      listEl.appendChild(item);
+    });
+
+    if(typeof gtag==='function') gtag('event','matches_rendered',{count:schools.length});
+  }
+
+  // ============================================
+  // SUCCESS
+  // ============================================
+  function showSuccess(){
+    form.querySelectorAll('.form-step').forEach(function(s){s.classList.remove('active');});
+    if(progressBar) progressBar.style.display='none';
+    if(stepCounter) stepCounter.style.display='none';
+    var hdr = form.querySelector('.form-card__header');
+    if(hdr) hdr.style.display='none';
+    var success = document.getElementById('form-success');
+    if(success){success.style.display='block';success.classList.add('active');}
+    var formWrapper = document.getElementById('mea-lead-form');
+    if(formWrapper) formWrapper.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  // ============================================
+  // LEADHOOP POST
+  // ============================================
+  function submitToLeadHoop(endpoint, payload){
+    return new Promise(function(resolve, reject){
+      if(!endpoint || endpoint.indexOf('your-')!==-1){
+        debug('[DEV] Simulated POST:', endpoint, payload);
+        setTimeout(function(){resolve({ok:true,lead_id:'mock_'+Date.now()});},600);
+        return;
+      }
+      fetch(endpoint,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      })
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json().catch(function(){return {ok:true};});})
+      .then(resolve)
+      .catch(reject);
+    });
+  }
+
+  // ============================================
+  // MOBILE MENU
+  // ============================================
+  var hamburger=document.getElementById('hamburger'),menu=document.getElementById('mobileMenu'),mobileCta=document.getElementById('mobileCta');
+  if(hamburger&&menu){
+    hamburger.addEventListener('click',function(){var o=menu.classList.toggle('open');hamburger.classList.toggle('active');document.body.style.overflow=o?'hidden':'';});
+    if(mobileCta) mobileCta.addEventListener('click',function(){menu.classList.remove('open');hamburger.classList.remove('active');document.body.style.overflow='';});
+    menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');hamburger.classList.remove('active');document.body.style.overflow='';});});
+  }
+
+  // ============================================
+  // STICKY CTA
+  // ============================================
+  var sticky=document.getElementById('stickyCta'),formEl=document.getElementById('mea-lead-form');
+  if(sticky&&formEl&&'IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(e){var v=e.some(function(x){return x.isIntersecting;});sticky.classList.toggle('hidden',v);},{threshold:0.1});
+    obs.observe(formEl);
+    sticky.addEventListener('click',function(){formEl.scrollIntoView({behavior:'smooth',block:'center'});});
+  }
+
+  // ============================================
+  // SCROLL REVEAL
+  // ============================================
+  var revs=document.querySelectorAll('.reveal');
+  if(revs.length&&'IntersectionObserver' in window){
+    var ro=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+    revs.forEach(function(r){ro.observe(r);});
+  } else {revs.forEach(function(r){r.classList.add('visible');});}
+
+  // ============================================
+  // SMOOTH SCROLL
+  // ============================================
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=this.getAttribute('href');if(id==='#')return;var t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
+
+})();
+</script>
+        </form>
+      </div>
+    </div>
+  </section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-strip__inner">
+      <div class="trust-item"><div class="trust-item__icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>VA-Approved Schools Only</div>
+      <div class="trust-item"><div class="trust-item__icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>Free &mdash; No Cost to You</div>
+      <div class="trust-item"><div class="trust-item__icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>GI Bill &amp; MyCAA Accepted</div>
+      <div class="trust-item"><div class="trust-item__icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 0 3 3 6 3s6-3 6-3v-5"/></svg></div>Accredited Programs</div>
+      <div class="trust-item"><div class="trust-item__icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>Personalized Matching</div>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Schools -->
+<section class="featured-schools" id="featured-schools">
+  <div class="container">
+    <div class="featured-schools__head reveal">
+      <div class="eyebrow">Featured Schools</div>
+      <h2 class="section-title">Schools Built for Military Students</h2>
+      <p class="section-sub">Two of our top partner institutions offering preferred pricing, dedicated veteran services, and flexible programs designed for your schedule.</p>
+    </div>
+
+    <div class="featured-grid">
+
+      <article class="featured-card reveal reveal--d1">
+        <img class="featured-card__logo"
+             src="https://www.militaryeduadvisors.com/wp-content/uploads/2026/04/HCU-Logo.png"
+             alt="Houston Christian University logo"
+             loading="lazy">
+        <h3>Houston Christian University</h3>
+        <div class="featured-card__meta">Houston, TX &nbsp;&middot;&nbsp; On-Campus &amp; Online</div>
+        <p class="featured-card__desc">A faith-based university with a strong commitment to serving those who served &mdash; empowering veterans, service members, and their families with the resources to succeed.</p>
+        <ul class="featured-card__list">
+          <li>Yellow Ribbon Program &mdash; no out-of-pocket costs for eligible veterans</li>
+          <li>Dedicated Veterans Lounge, free printing, lockers, and DV parking</li>
+          <li>Online tuition discounts plus tuition equalization grants</li>
+          <li>Special tuition pricing for military spouses and dependents</li>
+        </ul>
+        <div class="featured-card__cta">
+          <a href="https://www.militaryeduadvisors.com/educational-institutions-search/houston-christian-university/"
+             class="btn btn--primary btn--arrow"
+             target="_blank"
+             rel="noopener">Request Info from HCU</a>
+        </div>
+      </article>
+
+      <article class="featured-card reveal reveal--d2">
+        <img class="featured-card__logo"
+             src="https://www.militaryeduadvisors.com/wp-content/uploads/2024/07/Horizontal-Logo-Transparent-300x73.png"
+             alt="Waldorf University logo"
+             loading="lazy">
+        <h3>Waldorf University</h3>
+        <div class="featured-card__meta">Forest City, IA &nbsp;&middot;&nbsp; 100% Online</div>
+        <p class="featured-card__desc">A military-friendly online university designed for service members balancing busy schedules &mdash; with built-in flexibility, books included, and a dedicated military admissions team.</p>
+        <ul class="featured-card__list">
+          <li>Tuition at or below the $250 TA cap on undergraduate courses</li>
+          <li>Books included &amp; tech fees waived &mdash; no surprise charges</li>
+          <li>ArmyIgnitED, CCAF GEM, and AU-ABC partner &mdash; five-star Air Force rating</li>
+          <li>Generous military training credit transfer beyond electives</li>
+        </ul>
+        <div class="featured-card__cta">
+          <a href="https://www.militaryeduadvisors.com/educational-institutions-search/waldorf-university/"
+             class="btn btn--primary btn--arrow"
+             target="_blank"
+             rel="noopener">Request Info from Waldorf</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="section section--light">
+  <div class="container">
+    <span class="eyebrow">Explore Programs</span>
+    <h2 class="section-title">Find Your Field</h2>
+    <p class="section-sub">Programs designed for military students across four high-demand career fields.</p>
+    <div class="programs-grid">
+      <div class="prog-card reveal">
+        <div class="prog-card__icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Trades &amp; Skilled Labor</h3>
+        <p>HVAC, electrical, welding, CDL, plumbing, and construction management programs.</p>
+        <a href="#" class="prog-card__link">Explore Programs &rarr;</a>
+      </div>
+      <div class="prog-card reveal reveal--d1">
+        <div class="prog-card__icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <h3>Healthcare</h3>
+        <p>Nursing, medical assisting, radiology, health admin, and EMT certification programs.</p>
+        <a href="#" class="prog-card__link">Explore Programs &rarr;</a>
+      </div>
+      <div class="prog-card reveal reveal--d2">
+        <div class="prog-card__icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+        <h3>Business</h3>
+        <p>Business administration, accounting, project management, logistics, and HR programs.</p>
+        <a href="#" class="prog-card__link">Explore Programs &rarr;</a>
+      </div>
+      <div class="prog-card reveal reveal--d3">
+        <div class="prog-card__icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Information Technology</h3>
+        <p>Cybersecurity, networking, software development, cloud computing, and data analytics.</p>
+        <a href="#" class="prog-card__link">Explore Programs &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section--white">
+  <div class="container" style="text-align:center">
+    <span class="eyebrow">How It Works</span>
+    <h2 class="section-title">Three Steps to Your Next Chapter</h2>
+    <p class="section-sub" style="margin:0 auto">No paperwork, no phone tag. Just a simple match in under a minute.</p>
+    <div class="how-grid">
+      <div class="how-step reveal"><div class="how-step__num">1</div><h3>Tell Us About You</h3><p>Your military background, education level, and what you&rsquo;re interested in studying.</p></div>
+      <div class="how-step reveal reveal--d1"><div class="how-step__num">2</div><h3>We Match You</h3><p>Our system finds accredited, VA-approved schools that fit your profile and benefits.</p></div>
+      <div class="how-step reveal reveal--d2"><div class="how-step__num">3</div><h3>Schools Reach Out</h3><p>Matched schools contact you directly with program details and next steps.</p></div>
+    </div>
+    <a href="#mea-lead-form" class="btn btn--primary btn--arrow" style="margin-top:32px">Start Your Free Match</a>
+  </div>
+</section>
+
+<!-- PHOTO FEATURE -->
+<div class="photo-feature">
+  <img src="data:image/jpeg;base64,__PLACEHOLDER_PHOTO_FEATURE__" alt="Military family exploring education options" class="photo-feature__img" loading="lazy">
+  <div class="photo-feature__overlay">
+    <div class="photo-feature__content">
+      <h2>Your Family&rsquo;s Future Starts With the Right School</h2>
+      <p>Whether you&rsquo;re active duty, transitioning, or a military spouse &mdash; we help you find programs that fit your life, your benefits, and your goals.</p>
+      <a href="#mea-lead-form" class="btn btn--primary btn--arrow">Get Matched Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- BRANCHES -->
+<div class="branches">
+  <p class="branches__label">Trusted by service members from every branch</p>
+  <div class="branches__list">
+    <span>ARMY</span><span>NAVY</span><span>AIR FORCE</span><span>MARINES</span><span>COAST GUARD</span><span>SPACE FORCE</span>
+  </div>
+</div>
+
+<!-- BLOG PREVIEW -->
+<section class="section section--light">
+  <div class="container">
+    <span class="eyebrow">From the Blog</span>
+    <h2 class="section-title">Latest Resources &amp; Guides</h2>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-card__thumb" style="background:linear-gradient(135deg,#1a2a4a 0%,#2d4a7a 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:32px">&#x1F393;</div>
+        <div class="blog-card__body">
+          <div class="blog-card__meta"><span class="blog-card__cat">Benefits</span><span>&middot;</span>Oct 11, 2025</div>
+          <h3><a href="#">How to Maximize Your GI Bill Benefits for Education</a></h3>
+          <p class="blog-card__excerpt">Understanding the full scope of your Chapter 33 benefits can save thousands and open doors to programs you didn&rsquo;t know were covered.</p>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal--d1">
+        <div class="blog-card__thumb" style="background:linear-gradient(135deg,#2a1a3a 0%,#4a2a5a 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:32px">&#x1F4BC;</div>
+        <div class="blog-card__body">
+          <div class="blog-card__meta"><span class="blog-card__cat">Career</span><span>&middot;</span>Oct 11, 2025</div>
+          <h3><a href="#">Military Spouse Education: MyCAA Scholarship Guide</a></h3>
+          <p class="blog-card__excerpt">Military spouses are the backbone of the community. Here&rsquo;s how to access up to $4,000 in education funding through MyCAA.</p>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal--d2">
+        <div class="blog-card__thumb" style="background:linear-gradient(135deg,#1a3a2a 0%,#2a5a4a 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:32px">&#x1F4BB;</div>
+        <div class="blog-card__body">
+          <div class="blog-card__meta"><span class="blog-card__cat">Education</span><span>&middot;</span>Aug 27, 2025</div>
+          <h3><a href="#">Online vs. On-Campus: Which Works for Military Students?</a></h3>
+          <p class="blog-card__excerpt">Military families face unique challenges from relocations to deployments. Here&rsquo;s how to pick the right format.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:28px"><a href="#" class="btn btn--outline">View All Posts &rarr;</a></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Ready to Take the Next Step?</h2>
+    <p>Find accredited programs that work with your military benefits.</p>
+    <a href="#mea-lead-form" class="btn btn--primary btn--lg btn--arrow">Find My Schools</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="#" class="logo"><img src="data:image/png;base64,__PLACEHOLDER_LOGO_FOOTER__" alt="Military EDU Advisors" style="height:40px"></a>
+        <p>Helping military service members, veterans, and their families find accredited education programs that honor their service and their benefits.</p>
+      </div>
+      <div>
+        <h3 class="footer__heading">Programs</h3>
+        <ul class="footer__links">
+          <li><a href="#">Trades &amp; Skilled Labor</a></li>
+          <li><a href="#">Healthcare</a></li>
+          <li><a href="#">Business</a></li>
+          <li><a href="#">Information Technology</a></li>
+          <li><a href="#">School Search</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer__heading">Resources</h3>
+        <ul class="footer__links">
+          <li><a href="#">Career Resources</a></li>
+          <li><a href="#">Funding &amp; Scholarships</a></li>
+          <li><a href="#">Video Library</a></li>
+          <li><a href="#">Career Coaching</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__disclaimer">Military EDU Advisors is not affiliated with or endorsed by the U.S. Department of Defense, the Department of Veterans Affairs, or any government agency. Results may vary based on individual service history and school-specific policies. By submitting your information, you agree to be contacted by schools matching your interests.</p>
+      <p class="footer__copy">&copy; 2026 Military EDU Advisors. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 0 3 3 6 3s6-3 6-3v-5"/></svg>
+  Find Schools That Accept Your GI Bill
+</div>
+
+</body>
+</html>
