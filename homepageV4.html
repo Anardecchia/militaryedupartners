@@ -132,17 +132,23 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
 
 /* ── LEAD FORM ── */
 .form-card {
-  background: #ffffff;
+  background-color: #ffffff !important;
+  background-image: none !important;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
   position: relative;
-  z-index: 3;
+  z-index: 5;
   isolation: isolate;
 }
-.form-card__header { background:var(--dark2); padding:14px 20px; text-align:center; }
-.form-card__title { font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--white); }
-.form-card__sub { font-size:13px; color:var(--silver); margin-top:2px; }
+
+.form-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  z-index: -1;
+}
 .form-progress { height:4px; background:var(--border); }
 .form-step-counter { text-align:center; padding:10px 20px 0; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:0.03em; }
 .form-progress__fill { height:100%; background:var(--crimson); border-radius:0 2px 2px 0; transition:width 0.4s cubic-bezier(0.4,0,0.2,1); }
@@ -527,14 +533,6 @@ h1,h2,h3,h4 { font-family:var(--font-display); font-weight:700; line-height:1.12
         </form>
       </div>
     </section>
-  <!-- Mobile badges below form -->
-  <div class="container hero__badges--mobile" style="margin-top:24px; display:flex; justify-content:center; flex-wrap:wrap; gap:8px;">
-    <span class="hero__badge"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> VA Approved</span>
-    <span class="hero__badge"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Free</span>
-    <span class="hero__badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 Seconds</span>
-    <span class="hero__badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> No Obligation</span>
-  </div>
-</section>
 
 <!-- TRUST STRIP -->
 <div class="trust-strip">
