@@ -1295,7 +1295,21 @@
               <button type="button" class="btn form-continue" data-continue="contact">Continue</button>
             </div>
           </div>
- 
+
+         <!-- Step 3b: Military Branch (only if Yes) -->
+          <div class="form-step" data-step="military-branch">
+          <div class="form-step__label">What is your military affiliation?</div>
+          <div class="form-step__micro">This helps us match you with schools that support your benefits</div>
+          <div class="form-options">
+    <button type="button" class="form-option" data-branch="Veteran"><span class="form-option__radio"></span>Veteran</button>
+    <button type="button" class="form-option" data-branch="Active Duty / Reserve / Guard"><span class="form-option__radio"></span>Active Duty / Reserve / Guard</button>
+    <button type="button" class="form-option" data-branch="ETS"><span class="form-option__radio"></span>ETS</button>
+    <button type="button" class="form-option" data-branch="Dependent or Spouse"><span class="form-option__radio"></span>Dependent or Spouse</button>
+  </div>
+  <div class="form-nav">
+    <button type="button" class="form-back" data-back="grad-military">&larr; Back</button>
+  </div>
+</div>
           <!-- Step 4: Contact -->
           <div class="form-step" data-step="contact">
             <div class="form-step__label">How can a school representative reach you?</div>
@@ -1609,6 +1623,7 @@
       "program-other":   { num: 1, total: 4, pct: 25 },
       "education-level": { num: 2, total: 4, pct: 50 },
       "grad-military":   { num: 3, total: 4, pct: 75 },
+      "military-branch": { num: 3, total: 4, pct: 75 },
       "contact":         { num: 4, total: 4, pct: 100 },
       "matches":         { num: null, total: null, pct: 100, label: "Your Matches" }
     };
@@ -1619,6 +1634,7 @@
       educationLevel: "",
       gradYear: "",
       militaryAffiliation: "",
+      militaryBranch: "",
       contact: {},
       matchedSchools: [],
       // tracks history for smart back-navigation (e.g. from edu-level back to 1a or 1b)
@@ -1800,11 +1816,27 @@
         setError("grad-military", "Please select Yes or No.");
         return;
       }
-      setError("grad-military");
-      state.gradYear = yearVal;
-      goTo("contact");
+     setError("grad-military");
+state.gradYear = yearVal;
+if (state.militaryAffiliation === "Yes") {
+  goTo("military-branch");
+} else {
+  state.militaryBranch = "";
+  goTo("contact");
+}
     });
- 
+
+    // ===== Military branch selection (step 3b) =====
+leadForm.querySelectorAll('[data-branch]').forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const stepEl = btn.closest(".form-step");
+    clearSelection(stepEl);
+    btn.classList.add("selected");
+    state.militaryBranch = btn.dataset.branch;
+    setTimeout(() => goTo("contact"), 180);
+  });
+});
+    
     // ===== Step 4 submit (validates contact + TCPA, builds matches) =====
     document.querySelector("#form-submit-contact").addEventListener("click", () => {
       const data = {
