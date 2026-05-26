@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNHU Linkout Preview — Results Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --navy: #1a2332;
+    --navy-light: #243044;
+    --crimson: #8b1a1a;
+    --crimson-hover: #a02020;
+    --gold: #c4953a;
+    --gold-light: #d4a94a;
+    --silver: #c0c0c0;
+    --white: #ffffff;
+    --off-white: #f8f9fa;
+    --light-gray: #f0f0f0;
+    --medium-gray: #e5e5e5;
+    --text-dark: #1a1a1a;
+    --text-medium: #444444;
+    --text-light: #5a5a5a;
+    --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text-dark);
+    background: #f5f5f5;
+    margin: 0;
+}
+
+/* ═══ PREVIEW CONTEXT BANNER ═══ */
+.preview-banner {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 8px 20px;
+    text-align: center;
+}
+.preview-banner span {
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 8px;
+    opacity: 0.85;
+}
+
+/* ═══ HERO SECTION — matches live site ═══ */
+.hero {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--navy);
+}
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(26, 35, 50, 0.92) 0%,
+        rgba(26, 35, 50, 0.75) 50%,
+        rgba(26, 35, 50, 0.3) 100%
+    );
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+}
+.hero .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.hero-content {
+    flex: 1;
+    max-width: 560px;
+    color: var(--white);
+}
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.12;
+    margin-bottom: 16px;
+}
+.hero-content h1 .highlight {
+    color: var(--gold);
+}
+.hero-content p {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    opacity: 0.9;
+}
+
+/* ═══ FORM CARD — matches live site ═══ */
+.hero-form-wrapper {
+    flex: 0 0 420px;
+    max-width: 420px;
+}
+.lead-form-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+.form-header {
+    background: var(--navy);
+    color: var(--white);
+    text-align: center;
+    padding: 16px 20px;
+}
+.form-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.form-header p {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+/* Progress bar */
+.form-progress {
+    padding: 12px 24px;
+    background: var(--off-white);
+    border-bottom: 1px solid var(--medium-gray);
+}
+.step-indicator {
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 500;
+}
+.progress-bar {
+    height: 3px;
+    background: var(--medium-gray);
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background: var(--crimson);
+    border-radius: 2px;
+    width: 100%;
+}
+
+/* Step content */
+.form-step {
+    padding: 24px;
+}
+.form-step h3.results-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+.step-subtitle {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 16px;
+}
+
+/* ═══ SCHOOL CARDS — matches live renderMatchedSchools() output ═══ */
+.matched-school-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    background: #fff;
+}
+.school-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.school-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+.school-name {
+    font-size: 16px;
+    color: #1a1a1a;
+    display: block;
+    font-weight: 700;
+}
+.school-type {
+    font-size: 12px;
+    color: #6b7280;
+}
+.program-select-wrap {
+    margin-bottom: 14px;
+}
+.program-select-wrap label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a1a1a;
+    display: block;
+    margin-bottom: 4px;
+}
+.program-select-wrap select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    cursor: pointer;
+    appearance: auto;
+    font-family: var(--font-body);
+}
+.tcpa-wrap {
+    margin-bottom: 14px;
+}
+.tcpa-wrap label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 11px;
+    color: #444;
+    line-height: 1.4;
+    cursor: pointer;
+}
+.tcpa-wrap input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: #8b1a1a;
+    flex-shrink: 0;
+}
+.school-submit-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--crimson);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--font-body);
+    width: 100%;
+    text-align: center;
+}
+.school-submit-btn:hover {
+    background: var(--crimson-hover);
+}
+.school-submit-btn.submitted {
+    background: #2e7d32;
+    cursor: default;
+}
+.submit-note {
+    font-size: 11px;
+    color: #6b7280;
+    display: block;
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* ═══ SNHU LINKOUT — same card style ═══ */
+.snhu-linkout-card .snhu-desc {
+    font-size: 13px;
+    color: #444;
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+.snhu-cta {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--crimson);
+    color: #fff !important;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    font-family: var(--font-body);
+    width: 100%;
+    text-align: center;
+}
+.snhu-cta:hover {
+    background: var(--crimson-hover);
+}
+.opens-note {
+    font-size: 11px;
+    color: #6b7280;
+    display: block;
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* ═══ TRUST BAR — matches live site ═══ */
+.trust-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--medium-gray);
+    padding: 14px 0;
+}
+.trust-bar .container {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-medium);
+    white-space: nowrap;
+}
+.trust-item .icon {
+    width: 16px;
+    height: 16px;
+    color: var(--gold);
+    flex-shrink: 0;
+}
+.trust-item .icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ═══ ANNOTATION (for Sam) ═══ */
+.annotation-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+.annotation-card {
+    background: #fff;
+    border: 2px dashed var(--gold);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+}
+.annotation-card h4 {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.annotation-card h4::before {
+    content: '📋';
+}
+.annotation-card ul {
+    list-style: none;
+    padding: 0;
+}
+.annotation-card ul li {
+    font-size: 13px;
+    color: var(--text-medium);
+    line-height: 1.6;
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+}
+.annotation-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--crimson);
+    font-weight: 700;
+}
+
+/* ═══ NEW ADDITION CALLOUT ═══ */
+.new-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-heading);
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+    .hero .container {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .hero-content { max-width: 100%; }
+    .hero-content h1 { font-size: 2rem; }
+    .hero-form-wrapper { flex: none; max-width: 100%; width: 100%; }
+    .trust-bar .container { gap: 16px; }
+    .trust-item { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Preview context -->
+<div class="preview-banner">
+    Preview — Homepage Results Page (Step 5) with SNHU Linkout
+    <span>For internal review only</span>
+</div>
+
+<!-- ═══ HERO — matches live site layout ═══ -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+        <div class="hero-content">
+            <h1>Find Schools That Accept Your <span class="highlight">Military Benefits</span> — 30 Seconds</h1>
+            <p>We match military service members, veterans, and spouses with accredited programs that honor your service and your benefits. Free. No obligation.</p>
+        </div>
+        <div class="hero-form-wrapper">
+            <div class="lead-form-card">
+                <div class="form-header">
+                    <h3>Find Your School Match</h3>
+                    <p>Free. 30 seconds. No obligation.</p>
+                </div>
+
+                <div class="form-progress">
+                    <span class="step-indicator">Step 4 of 4</span>
+                    <div class="progress-bar"><div class="progress-fill"></div></div>
+                </div>
+
+                <div class="form-step">
+                    <h3 class="results-title">Your School Matches</h3>
+                    <p class="step-subtitle">Submit to the schools you're interested in.</p>
+
+                    <!-- ═══ Example LeadHoop Match (like the Post University card in screenshot) ═══ -->
+                    <div class="matched-school-card">
+                        <div class="school-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Post_University_seal.png/100px-Post_University_seal.png" alt="" class="school-logo" onerror="this.style.display='none'">
+                            <div>
+                                <strong class="school-name">Post University - Online School</strong>
+                                <span class="school-type">Online</span>
+                            </div>
+                        </div>
+                        <div class="program-select-wrap">
+                            <label>Program of Interest</label>
+                            <select>
+                                <option>Associate of Applied Science — A.S. in Accounting*</option>
+                                <option>Bachelor of Science — Business Administration</option>
+                            </select>
+                        </div>
+                        <div class="tcpa-wrap">
+                            <label>
+                                <input type="checkbox" checked>
+                                <span>By checking this box, I consent to be contacted by Post University regarding educational programs by phone, email, or text, including pre-recorded messages and automated technology, even if my number is on a do-not-call list. Consent is not a condition of purchase. I may opt out at any time. Personal Data will be used as stated in the Privacy Policy.</span>
+                            </label>
+                        </div>
+                        <button class="school-submit-btn">Submit To Post University - Online School</button>
+                        <span class="submit-note">(submits only this school)</span>
+                    </div>
+
+                    <!-- ═══════════════════════════════════════
+                         SNHU LINKOUT — NEW ADDITION
+                         ═══════════════════════════════════════ -->
+                    <div class="matched-school-card snhu-linkout-card">
+                        <div class="school-header">
+                            <div>
+                                <strong class="school-name">Southern New Hampshire University</strong>
+                                <span class="school-type">Online University</span>
+                            </div>
+                        </div>
+                        <p class="snhu-desc">Explore flexible, accredited online degree programs at SNHU — a nonprofit university with 200+ programs designed for military-affiliated students.</p>
+                        <a href="https://ge.trkhoop.com/redirects/cSMRms_SP6W63TRwIrdQjw?test=false&first_name=John&last_name=Davis&phone=5205551234&email=john.davis@example.com&city=Phoenix&state=AZ&zip=85001&utm_source=google&utm_medium=cpc&utm_campaign=mil_edu_search&utm_term=&utm_content=" target="_blank" rel="noopener" class="snhu-cta">Learn More About SNHU</a>
+                        <span class="opens-note">(opens in new tab)</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TRUST BAR — matches live site ═══ -->
+<section class="trust-bar">
+    <div class="container">
+        <div class="trust-item"><span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> VA-Approved Schools Only</div>
+        <div class="trust-item"><span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Free – No Cost to You</div>
+        <div class="trust-item"><span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 2026 GI Bill Optimized</div>
+        <div class="trust-item"><span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Accredited Programs</div>
+        <div class="trust-item"><span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Personalized Matching</div>
+    </div>
+</section>
+
+<!-- ═══ NOTES FOR SAM ═══ -->
+<section class="annotation-section">
+    <div class="annotation-card">
+        <h4>How the SNHU Linkout Works</h4>
+        <ul>
+            <li>The SNHU card appears at the bottom of the results on the <strong>homepage form only</strong> — not on any landing page forms (Business, Healthcare, IT, Trades)</li>
+            <li>It shows every time Step 5 (results) loads, regardless of how many LeadHoop school matches come back above it</li>
+            <li>The "Learn More" button is a LeadHoop redirect link that pre-fills the lead's first name, last name, phone, email, city, state, zip, and all UTM parameters automatically</li>
+            <li>Opens in a new tab so the user doesn't lose their matched school results</li>
+            <li>Respects test mode — passes <code>test=true</code> when the site's LeadHoop test mode toggle is on</li>
+            <li>The card above (Post University) is just an example of what a real LeadHoop match looks like — the SNHU card will always sit below whatever matches come back</li>
+        </ul>
+    </div>
+</section>
+
+</body>
+</html>
